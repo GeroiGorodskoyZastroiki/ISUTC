@@ -33,12 +33,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    async void Start()
+    void Start()
     {
         UIManager.Close(UIManager.settings); //???
         UIManager.Open(UIManager.mainMenu);
-        await SceneManager.LoadSceneAsync("Banka", LoadSceneMode.Additive);
-        await SceneManager.UnloadSceneAsync("Init");
+        SceneManager.LoadSceneAsync("Banka", LoadSceneMode.Additive);
+        SceneManager.UnloadSceneAsync("Init");
     }
 
     #region OnLobbyGameCreated
