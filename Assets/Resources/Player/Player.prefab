@@ -7898,8 +7898,8 @@ GameObject:
   - component: {fileID: 545899335829374641}
   - component: {fileID: 3673040072709434853}
   - component: {fileID: 7857797993138181002}
-  - component: {fileID: 950971748217180435}
   - component: {fileID: 6555192230701581723}
+  - component: {fileID: 950971748217180435}
   - component: {fileID: 6286807680746965695}
   - component: {fileID: 5552078765232517711}
   - component: {fileID: 1181899858722066266}
@@ -8030,28 +8030,6 @@ MonoBehaviour:
     m_InternalValue: 0
   ready:
     m_InternalValue: 0
---- !u!95 &950971748217180435
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7464074104819034232}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3fb235c1c3068e7439f3fa8af72835d5, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &6555192230701581723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8259,6 +8237,28 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!95 &950971748217180435
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7464074104819034232}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3fb235c1c3068e7439f3fa8af72835d5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &6286807680746965695
 MonoBehaviour:
   m_ObjectHideFlags: 0
