@@ -8,13 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Checkout
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
         with:
           lfs: true
 
       # Cache
-      - uses: actions/cache@v3
+      - name: Cache Library
+        uses: actions/cache@v3
         with:
           path: Library
           key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
@@ -32,7 +33,8 @@ jobs:
           targetPlatform: StandaloneWindows
 
       # Output
-      - uses: actions/upload-artifact@v3
+      - name: Upload Result
+        uses: actions/upload-artifact@v3
         with:
           name: Build
           path: build

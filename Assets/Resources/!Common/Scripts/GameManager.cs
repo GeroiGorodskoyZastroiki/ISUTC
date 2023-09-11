@@ -37,8 +37,7 @@ public class GameManager : MonoBehaviour
     {
         UIManager.Close(UIManager.settings); //???
         UIManager.Open(UIManager.mainMenu);
-        SceneManager.LoadSceneAsync("Banka", LoadSceneMode.Additive);
-        SceneManager.UnloadSceneAsync("Init");
+        SceneManager.LoadSceneAsync("Banka");
     }
 
     #region OnLobbyGameCreated

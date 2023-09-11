@@ -75,7 +75,7 @@ public class SteamworksManager : MonoBehaviour
         lobby.Leave();
         if (NetworkManager.Singleton) NetworkManager.Singleton.Shutdown();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        UIManager.Open(UIManager.mainMenu);
+        //UIManager.Open(UIManager.mainMenu);
         GameManager.Instance.gameStarted = false;
     }
     #endregion

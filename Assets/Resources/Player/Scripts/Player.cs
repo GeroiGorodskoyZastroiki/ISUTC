@@ -37,8 +37,8 @@ public class Player : NetworkBehaviour
     [FoldoutGroup("Movement")][SerializeField] float _maxStamina = 15f;
     [FoldoutGroup("Movement")][SerializeField] float _staminaDecSpeed = 1f;
     [FoldoutGroup("Movement")][SerializeField] float _staminaRegSpeed = 0.5f;
-    [FoldoutGroup("Movement")][SerializeField] float _staminaDecBreakpoint = 4f;
-    [FoldoutGroup("Movement")][SerializeField] float _staminaRegBreakpoint = 1f;
+    [FoldoutGroup("Movement")][SerializeField] float _staminaDecBreakpoint = 1f;
+    [FoldoutGroup("Movement")][SerializeField] float _staminaRegBreakpoint = 4f;
     [FoldoutGroup("Movement")][ReadOnly][SerializeField] float _stamina;
     [FoldoutGroup("Movement")][ReadOnly][SerializeField] bool _sprint;
 
