@@ -46,7 +46,7 @@ public class Player : NetworkBehaviour
     [Header("Fall & Ground")]
     [FoldoutGroup("Movement")][SerializeField] float _fallAcceleration = -15.0f; //The character uses its own gravity value. The engine default is -9.81f
     [FoldoutGroup("Movement")][ReadOnly][SerializeField] bool _grounded = true;
-    [FoldoutGroup("Movement")][ReadOnly][SerializeField] LayerMask _groundLayers = 1; //What layers the character uses as ground. PLAYER MUST BE AT THE DIFFERENT LAYER
+    [FoldoutGroup("Movement")][ReadOnly][SerializeField] LayerMask _levelLayerMask = 1; //What layers the character uses as ground. PLAYER MUST BE AT THE DIFFERENT LAYER
     const float _fallTimeout = 0.15f; //Time required to pass before entering the fall state. Useful for walking down stairs
     float _maxVerticalVelocity = 50.0f;
     float _fallTimeoutDelta;
@@ -173,7 +173,7 @@ public class Player : NetworkBehaviour
             steamId.OnValueChanged += OnSteamIdChanged;
             UpdateSteamId();
         }
-        yield return new WaitForSeconds(2);
+        //yield return new WaitForSeconds(2);
         UIManager.lobby.GetComponent<LobbyUI>().CreatePlayerInfo(gameObject);
         yield break;
     }
@@ -220,7 +220,17 @@ public class Player : NetworkBehaviour
 
     void Move()
     {
-        _targetSpeed = ChooseSpeed();
+        bool CheckCollisionWithObstacle()
+        {
+            Vector3 capsuleBottomPoint = transform.position + new Vector3(0, _controller.stepOffset + 0.01f, 0f);
+            Vector3 capsuleTopPoint = transform.position + new Vector3(0, 1.8f, 0f);
+            Vector3 directionX = transform.rotation * new Vector3(_moveDirection.x, 0f, 0f);
+            Vector3 directionZ = transform.rotation * new Vector3(0f, 0f, _moveDirection.y);
+            bool hitX = Physics.CapsuleCast(capsuleBottomPoint, capsuleTopPoint, 0.45f, directionX, 0.25f, _levelLayerMask);
+            bool hitZ = Physics.CapsuleCast(capsuleBottomPoint, capsuleTopPoint, 0.45f, directionZ, 0.25f, _levelLayerMask);
+            Debug.Log($"CheckHit: { hitX } { hitZ }");
+            return hitX || hitZ;
+        }
 
         float ChooseSpeed()
         {
@@ -241,9 +251,17 @@ public class Player : NetworkBehaviour
             }
         }
 
+        if (CheckCollisionWithObstacle())
+        {
+            _moveVelocity = Vector2.zero;
+            _targetSpeed = 0.0f;
+            return;
+        }
+
         Vector3 targetDirection = new Vector3(_moveDirection.x, 0.0f, _moveDirection.y).normalized;
         if (_moveDirection != Vector2.zero) targetDirection = transform.right * _moveDirection.x + transform.forward * _moveDirection.y;
 
+        _targetSpeed = ChooseSpeed();
         Vector3 targetVelocity = targetDirection.normalized * _targetSpeed;
         _moveVelocity = Vector3.Lerp(_moveVelocity, targetVelocity, 0.25f).Round() + new Vector3(0.0f, _verticalVelocity, 0.0f);
         _controller.Move(_moveVelocity * Time.deltaTime);
@@ -256,7 +274,7 @@ public class Player : NetworkBehaviour
     {
         // set sphere position, with offset
         Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - _groundedOffset, transform.position.z);
-        _grounded = Physics.CheckSphere(spherePosition, _groundedRadius, _groundLayers, QueryTriggerInteraction.Ignore);
+        _grounded = Physics.CheckSphere(spherePosition, _groundedRadius, _levelLayerMask, QueryTriggerInteraction.Ignore);
 
         if (_grounded)
         {
