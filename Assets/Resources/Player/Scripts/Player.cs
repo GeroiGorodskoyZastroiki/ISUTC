@@ -173,7 +173,7 @@ public class Player : NetworkBehaviour
             steamId.OnValueChanged += OnSteamIdChanged;
             UpdateSteamId();
         }
-        //yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2);
         UIManager.lobby.GetComponent<LobbyUI>().CreatePlayerInfo(gameObject);
         yield break;
     }
