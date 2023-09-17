@@ -6602,7 +6602,7 @@ PrefabInstance:
     - target: {fileID: 3209917573544614921, guid: e44af02234cd2bf4f942462f539b9c69,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ClickRebind
+      value: Rebind
       objectReference: {fileID: 0}
     - target: {fileID: 3209917573544614921, guid: e44af02234cd2bf4f942462f539b9c69,
         type: 3}
@@ -6672,7 +6672,7 @@ PrefabInstance:
     - target: {fileID: 7144035669218078067, guid: e44af02234cd2bf4f942462f539b9c69,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ClickReset
+      value: ResetBind
       objectReference: {fileID: 0}
     - target: {fileID: 7435768388928038772, guid: e44af02234cd2bf4f942462f539b9c69,
         type: 3}

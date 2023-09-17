@@ -15,14 +15,11 @@ public class HUDManager : MonoBehaviour
     Vector2 _mousePosition;
     private Color transparent = new Color(0, 0, 0, 0);
     private Item outlinedItem;
-    Camera cam;
     Player owner;
 
     void Start()
     {
-        cam = FindFirstObjectByType<Camera>();
         owner = GetComponentInParent<Player>();
-
         UIManager.HideCursor(true);
     }
 
@@ -35,16 +32,15 @@ public class HUDManager : MonoBehaviour
     void DrawPickUp()
     {
         bool pickUp = false;
-        Ray ray = cam.ScreenPointToRay(_mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        Ray ray = Camera.main.ScreenPointToRay(_mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit, owner.PickUpDistance))
         {
             Item item;
             hit.transform.gameObject.TryGetComponent<Item>(out item);
             if (item != null)
             {
                 outlinedItem = item;
-                if (hit.distance < owner.PickUpDistance) pickUp = true;
+                pickUp = true;
             }
         }
 

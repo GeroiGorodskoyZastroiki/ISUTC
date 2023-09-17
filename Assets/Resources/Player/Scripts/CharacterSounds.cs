@@ -25,9 +25,9 @@ public class CharacterSounds : MonoBehaviour
         player = GetComponentInParent<Player>();
         audioSource = GetComponent<AudioSource>();
         
-        lowExhaustedBreakpoint = player.Stamina * 0.6f;
-        mediumExhaustedBreakpoint = player.Stamina * 0.45f;
-        highExhaustedBreakpoint = player.Stamina * 0.15f;
+        lowExhaustedBreakpoint = player.MaxStamina * 0.6f;
+        mediumExhaustedBreakpoint = player.MaxStamina * 0.45f;
+        highExhaustedBreakpoint = player.MaxStamina * 0.15f;
     }
 
     private void Update()
@@ -41,7 +41,7 @@ public class CharacterSounds : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         var sound = GetBreatheSound();
 
-        if (sound)
+        if (sound && player.enabled)
         {
             Debug.Log(sound.name);
             audioSource.PlayOneShot(sound);

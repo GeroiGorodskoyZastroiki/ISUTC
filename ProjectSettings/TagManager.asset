@@ -3,17 +3,24 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SoundEmitter
+  - UIScreen
+  - NavMeshWaypoint
+  - ItemSpawnPoint
+  - PlayerSpawnPoint
+  - LobbySpawnPoint
+  - EnemySpawnPoint
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - StaticGeometry
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Items
   - 
   - 
   - 

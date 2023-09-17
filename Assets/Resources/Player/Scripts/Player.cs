@@ -23,6 +23,7 @@ public class Player : NetworkBehaviour
     #region MovementData
     public float SprintSpeed { get { return _sprintSpeed; } }
     public float Stamina { get { return _stamina; } }
+    public float MaxStamina { get { return _maxStamina; } }
     public float TargetSpeed { get { return _targetSpeed; } }
 
     [Header("Speed")]
@@ -32,7 +33,6 @@ public class Player : NetworkBehaviour
     [FoldoutGroup("Movement")][ReadOnly][SerializeField] float _mouseSensitivity;
     [FoldoutGroup("Movement")][ReadOnly][SerializeField] float _targetSpeed;
 
-    //[HorizontalLine(1.5f, EColor.Gray)]
     [Header("Sprint")]
     [FoldoutGroup("Movement")][SerializeField] float _maxStamina = 15f;
     [FoldoutGroup("Movement")][SerializeField] float _staminaDecSpeed = 1f;
@@ -42,11 +42,10 @@ public class Player : NetworkBehaviour
     [FoldoutGroup("Movement")][ReadOnly][SerializeField] float _stamina;
     [FoldoutGroup("Movement")][ReadOnly][SerializeField] bool _sprint;
 
-    //[HorizontalLine(1.5f, EColor.Gray)]
     [Header("Fall & Ground")]
     [FoldoutGroup("Movement")][SerializeField] float _fallAcceleration = -15.0f; //The character uses its own gravity value. The engine default is -9.81f
     [FoldoutGroup("Movement")][ReadOnly][SerializeField] bool _grounded = true;
-    [FoldoutGroup("Movement")][ReadOnly][SerializeField] LayerMask _levelLayerMask = 1; //What layers the character uses as ground. PLAYER MUST BE AT THE DIFFERENT LAYER
+    [FoldoutGroup("Movement")][ReadOnly][SerializeField] LayerMask _levelLayerMask; //What layers the character uses as ground. PLAYER MUST BE AT THE DIFFERENT LAYER
     const float _fallTimeout = 0.15f; //Time required to pass before entering the fall state. Useful for walking down stairs
     float _maxVerticalVelocity = 50.0f;
     float _fallTimeoutDelta;
@@ -63,7 +62,8 @@ public class Player : NetworkBehaviour
     #endregion
 
     #region GameplayData
-    public float PickUpDistance { get; private set; }
+    public float PickUpDistance { get { return _pickUpDistance; } }
+    [FoldoutGroup("Gameplay")][SerializeField] float _pickUpDistance = 3f;
     #endregion
 
     #region AppearenceData
@@ -86,7 +86,8 @@ public class Player : NetworkBehaviour
 
     void OnEnable()
     {
-        Cam.gameObject.SetActive(true);
+        Cam.GetComponentInChildren<Camera>(true).gameObject.SetActive(true);
+        //Cam.gameObject.SetActive(true);
         GetComponent<PlayerInput>().enabled = true;
         GetComponentInChildren<AimPoint>().enabled = true;
         GetComponentInChildren<HUDManager>(true).gameObject.SetActive(true);
@@ -100,7 +101,9 @@ public class Player : NetworkBehaviour
         _hudManager = GetComponentInChildren<HUDManager>();
 
         _mouseSensitivity = PlayerPrefs.HasKey("MouseSensitivity") ? PlayerPrefs.GetFloat("MouseSensitivity") : 1;
-        _fallTimeoutDelta = _fallTimeout; //reset our timeouts on start
+        _levelLayerMask = LayerMask.GetMask("StaticGeometry");
+        _fallTimeoutDelta = _fallTimeout;
+        _stamina = _maxStamina;
     }
 
     void FixedUpdate()
@@ -118,7 +121,7 @@ public class Player : NetworkBehaviour
     void Animate()
     {
         Vector2 targetVelocity = _moveDirection * _targetSpeed;
-        _animVelocity = Vector3.Lerp(_animVelocity, targetVelocity, 0.25f);//.Round();
+        _animVelocity = Vector3.Lerp(_animVelocity, targetVelocity, 0.25f);
         _animator.SetFloat("VelocityX", _animVelocity.x);
         _animator.SetFloat("VelocityZ", _animVelocity.y);
     }
@@ -127,7 +130,7 @@ public class Player : NetworkBehaviour
     void PickUp()
     {
         var ray = Camera.main.ScreenPointToRay(_mousePosition);
-        if (Physics.Raycast(ray, out var hit))
+        if (Physics.Raycast(ray, out RaycastHit hit, _pickUpDistance))
         {
             hit.transform.gameObject.TryGetComponent<Item>(out var item);
             if (item && hit.distance < PickUpDistance) item.ItemDespawnServerRpc();
@@ -220,7 +223,7 @@ public class Player : NetworkBehaviour
 
     void Move()
     {
-        bool CheckCollisionWithObstacle()
+        bool CheckCollisionWithObstacle() //сохранять последнее состояние и при return проверять, если оно совпадает с предыдущим, то тогда возвращать
         {
             Vector3 capsuleBottomPoint = transform.position + new Vector3(0, _controller.stepOffset + 0.01f, 0f);
             Vector3 capsuleTopPoint = transform.position + new Vector3(0, 1.8f, 0f);
@@ -228,7 +231,7 @@ public class Player : NetworkBehaviour
             Vector3 directionZ = transform.rotation * new Vector3(0f, 0f, _moveDirection.y);
             bool hitX = Physics.CapsuleCast(capsuleBottomPoint, capsuleTopPoint, 0.45f, directionX, 0.25f, _levelLayerMask);
             bool hitZ = Physics.CapsuleCast(capsuleBottomPoint, capsuleTopPoint, 0.45f, directionZ, 0.25f, _levelLayerMask);
-            Debug.Log($"CheckHit: { hitX } { hitZ }");
+            //Debug.Log($"CheckHit: { hitX } { hitZ }");
             return hitX || hitZ;
         }
 

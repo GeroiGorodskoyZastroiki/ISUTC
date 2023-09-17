@@ -157,6 +157,7 @@ namespace InputRebinder.Runtime
         /// </summary>
         public void ResetBind()
         {
+            PlayerPrefs.DeleteKey($"{MapName}{ActionName}{BindingIndex}Bind");
             this.Action.action.RemoveBindingOverride(this.BindingIndex);
             ResetTextAndButtons();
         }

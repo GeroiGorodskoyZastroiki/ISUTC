@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using Unity.Netcode;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
-using System;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public int itemsCount;
     public GameObject[] items;
     [HideInInspector] public bool gameStarted;
+    public InputActionAsset inputActionAsset;
 
     void Awake()
     {
@@ -35,8 +36,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        UIManager.Close(UIManager.settings); //???
-        UIManager.Open(UIManager.mainMenu);
+        LoadSettings();
         SceneManager.LoadSceneAsync("Banka");
     }
 
@@ -65,22 +65,18 @@ public class GameManager : MonoBehaviour
         var enemySpawnPoints = GameObject.FindGameObjectsWithTag("EnemySpawnPoint").ToList();
         var randomSpawnPoint = enemySpawnPoints[UnityEngine.Random.Range(0, enemySpawnPoints.Count)];
         GameObject enemy = Instantiate(this.enemy, randomSpawnPoint.transform.position, randomSpawnPoint.transform.rotation);
-        if (NetworkManager.Singleton.IsHost)
-        {
-            enemy.GetComponent<Enemy>().enabled = true;
-            enemy.GetComponentInChildren<EnemyVision>().enabled = true;
-        }
+        enemy.GetComponent<Enemy>().enabled = true;
+        enemy.GetComponentInChildren<EnemyVision>(true).enabled = true;
         enemy.GetComponent<NetworkObject>().Spawn(true);
     }
 
     public void SpawnItems()
     {
         var itemSpawnPoints = GameObject.FindGameObjectsWithTag("ItemSpawnPoint").ToList();
-        if (itemsCount > itemSpawnPoints.Count) throw new ArgumentException("Parameter is invalid", nameof(itemsCount));
         for (int i = 0; i < itemsCount; i++)
         {
             var selectedSpawnPoint = itemSpawnPoints[UnityEngine.Random.Range(0, itemSpawnPoints.Count)];
-            GameObject item = Instantiate(items[UnityEngine.Random.Range(0, itemSpawnPoints.Count)], selectedSpawnPoint.transform);
+            GameObject item = Instantiate(items[UnityEngine.Random.Range(0, itemSpawnPoints.Count)], selectedSpawnPoint.transform.position, selectedSpawnPoint.transform.rotation);
             item.GetComponent<NetworkObject>().Spawn(true);
             itemSpawnPoints.Remove(selectedSpawnPoint);
         }
@@ -100,5 +96,14 @@ public class GameManager : MonoBehaviour
         players[0].GetComponentInChildren<Camera>(true).gameObject.SetActive(true);
         UIManager.Open(UIManager.spectator);
         Destroy(owner);
+    }
+
+    void LoadSettings()
+    {
+        foreach (var map in inputActionAsset.actionMaps) 
+            foreach (var action in map)
+                for (int i = 0; i < action.bindings.Count; i++)
+                    if (PlayerPrefs.HasKey($"{map.name}{action.name}{i}Bind"))
+                        action.LoadBindingOverridesFromJson(PlayerPrefs.GetString($"{map.name}{action.name}{i}Bind"));
     }
 }
