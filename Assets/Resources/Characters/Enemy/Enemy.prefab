@@ -268,8 +268,9 @@ GameObject:
   - component: {fileID: 3013151733270265423}
   - component: {fileID: 3167504448264848593}
   - component: {fileID: 4553400275624391793}
+  - component: {fileID: 7142065568610031517}
   m_Layer: 7
-  m_Name: Footsteps
+  m_Name: Feet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -284,7 +285,7 @@ Transform:
   m_GameObject: {fileID: 2669830542760656481}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -468,6 +469,18 @@ MonoBehaviour:
   - 0
   applyHRTFToPathing: 0
   pathingMixLevel: 1
+--- !u!114 &7142065568610031517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2669830542760656481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7707f3e976d6cf47b0a335c70ea480c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3401849004764414036
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,12 +821,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4172795449709647055}
   - component: {fileID: 7738993973576464415}
+  - component: {fileID: 289159694413914427}
   - component: {fileID: 3252672129103048711}
   - component: {fileID: 4368595631107662565}
   - component: {fileID: 8230729813820007114}
   - component: {fileID: 7014768221349472150}
-  - component: {fileID: 289159694413914427}
-  - component: {fileID: 3897224905586413819}
+  - component: {fileID: 7561270542096639695}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -863,6 +876,35 @@ NavMeshAgent:
   m_BaseOffset: -0.13
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 0
+--- !u!114 &289159694413914427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5043626512436379728}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9be22fd07392fc543befc116d2f14677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPlayer: {fileID: 0}
+  state: 0
+  pursuitAftertime: 0.85
+  patrolSearchPoints: 3
+  patrolSearchTime: 2
+  pursuitSearchPoints: 3
+  pursuitSearchTime: 1
+  MoveSpeed: 4.5
+  SprintSpeed: 7
+  targetSpeed: 0
+  moveDirection: {x: 0, y: 0}
+  moveVelocity: {x: 0, y: 0, z: 0}
+  animVelocity: {x: 0, y: 0}
+  sprint: 0
+  standStill: 0
+  pursuitTransform: 0
+  destination: {fileID: 0}
 --- !u!95 &3252672129103048711
 Animator:
   serializedVersion: 7
@@ -949,36 +991,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TransitionStateInfoList: []
   m_Animator: {fileID: 3252672129103048711}
---- !u!114 &289159694413914427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5043626512436379728}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9be22fd07392fc543befc116d2f14677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetPlayer: {fileID: 0}
-  state: 0
-  pursuitAftertime: 0.85
-  patrolSearchPoints: 3
-  patrolSearchTime: 2
-  pursuitSearchPoints: 3
-  pursuitSearchTime: 1
-  MoveSpeed: 4.5
-  SprintSpeed: 7
-  targetSpeed: 0
-  moveDirection: {x: 0, y: 0}
-  moveVelocity: {x: 0, y: 0, z: 0}
-  animVelocity: {x: 0, y: 0}
-  sprint: 0
-  standStill: 0
-  pursuitTransform: 0
-  destination: {fileID: 0}
---- !u!114 &3897224905586413819
+--- !u!114 &7561270542096639695
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -987,13 +1000,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5043626512436379728}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84674b1f75227ef42b5758d18e8dfe14, type: 3}
+  m_Script: {fileID: 11500000, guid: cc239a95391a7404fb7428386de77df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  footstepsSounds:
-  - {fileID: 8300000, guid: 470fa15145f81654887e080cb9b5e00b, type: 3}
-  - {fileID: 8300000, guid: 3b86b2d996726dc4383da3dc6be0ce5d, type: 3}
-  footstepsSource: {fileID: 3167504448264848593}
 --- !u!1 &5100662557563747804
 GameObject:
   m_ObjectHideFlags: 0
@@ -1214,7 +1223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4400471799531266604}
   m_Layer: 7
-  m_Name: AudioSources
+  m_Name: SoundSources
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1449,7 +1458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7483544854440888965
 Transform:
   m_ObjectHideFlags: 0
@@ -2161,7 +2170,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1425
+  m_VersionIndex: 1428
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2245,7 +2254,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7500415125278970795}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b12ee44158056a344bfc78a314d51aa3, type: 3}
   m_Name: 

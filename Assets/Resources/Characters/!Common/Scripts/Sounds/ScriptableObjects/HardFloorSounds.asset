@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d3a137a4a785041966b3820f416168, type: 3}
+  m_Name: HardFloorSounds
+  m_EditorClassIdentifier: 
+  Materials:
+  - {fileID: 2100000, guid: f904fac889ccd8d42b60ac1c11dc5f91, type: 2}
+  FootstepsSounds:
+  - {fileID: 8300000, guid: 470fa15145f81654887e080cb9b5e00b, type: 3}
+  - {fileID: 8300000, guid: 3b86b2d996726dc4383da3dc6be0ce5d, type: 3}

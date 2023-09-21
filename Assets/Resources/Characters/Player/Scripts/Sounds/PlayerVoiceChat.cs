@@ -4,23 +4,23 @@ using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
-public class VoiceChat : NetworkBehaviour
+public class PlayerVoiceChat : NetworkBehaviour
 {
-    public NetworkVariable<FixedString4096Bytes> voiceData = new NetworkVariable<FixedString4096Bytes>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    NetworkVariable<FixedString4096Bytes> voiceData = new NetworkVariable<FixedString4096Bytes>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
-    private AudioSource source;
+    AudioSource source;
 
-    private MemoryStream output;
-    private MemoryStream stream;
-    private MemoryStream input;
+    MemoryStream output;
+    MemoryStream stream;
+    MemoryStream input;
 
-    private int optimalRate;
-    private int clipBufferSize;
-    private float[] clipBuffer;
+    int optimalRate;
+    int clipBufferSize;
+    float[] clipBuffer;
 
-    private int playbackBuffer;
-    private int dataPosition;
-    private int dataReceived;
+    int playbackBuffer;
+    int dataPosition;
+    int dataReceived;
 
     int compressedWritten;
 

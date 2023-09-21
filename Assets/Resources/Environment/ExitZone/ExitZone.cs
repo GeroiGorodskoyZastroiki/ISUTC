@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 public class ExitZone : MonoBehaviour
@@ -11,15 +12,14 @@ public class ExitZone : MonoBehaviour
 
     void OnTriggerStay(Collider collider)
     {
-        Player player;
-        collider.TryGetComponent<Player>(out player);
+        collider.TryGetComponent<Player>(out Player player);
         if (player)
         {
             int itemsCount = FindObjectsByType<Item>(FindObjectsSortMode.None).Length;
             if (itemsCount == 0)
             {
                 if (player.NetworkObject.IsOwner) GameManager.Instance.MakePlayerSpectator();
-                else Destroy(player.gameObject);
+                if (NetworkManager.Singleton.IsHost) player.GetComponent<NetworkObject>().Despawn();
             }
         }
     }

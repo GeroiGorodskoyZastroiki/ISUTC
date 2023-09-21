@@ -197,7 +197,7 @@ public class Player : NetworkBehaviour
     void UpdateSkin() => OnSkinChanged(skin.Value, skin.Value);
     #endregion
 
-    #region Controller
+    #region Movement
     void MoveCamera()
     {
         if (_cameraBob)
@@ -223,14 +223,15 @@ public class Player : NetworkBehaviour
 
     void Move()
     {
-        bool CheckCollisionWithObstacle() //сохранять последнее состояние и при return проверять, если оно совпадает с предыдущим, то тогда возвращать
+        bool CheckCollisionWithObstacle()
         {
-            Vector3 capsuleBottomPoint = transform.position + new Vector3(0, _controller.stepOffset + 0.01f, 0f);
-            Vector3 capsuleTopPoint = transform.position + new Vector3(0, 1.8f, 0f);
+            float capsuleRadius = 0.45f;
+            Vector3 capsuleBottomPoint = transform.position + new Vector3(0, _controller.stepOffset + capsuleRadius/2 + 0.01f, 0f);
+            Vector3 capsuleTopPoint = transform.position + new Vector3(0, 1.8f - capsuleRadius/2, 0f);
             Vector3 directionX = transform.rotation * new Vector3(_moveDirection.x, 0f, 0f);
             Vector3 directionZ = transform.rotation * new Vector3(0f, 0f, _moveDirection.y);
-            bool hitX = Physics.CapsuleCast(capsuleBottomPoint, capsuleTopPoint, 0.45f, directionX, 0.25f, _levelLayerMask);
-            bool hitZ = Physics.CapsuleCast(capsuleBottomPoint, capsuleTopPoint, 0.45f, directionZ, 0.25f, _levelLayerMask);
+            bool hitX = Physics.CapsuleCast(capsuleBottomPoint, capsuleTopPoint, capsuleRadius, directionX, 0.25f, _levelLayerMask);
+            bool hitZ = Physics.CapsuleCast(capsuleBottomPoint, capsuleTopPoint, capsuleRadius, directionZ, 0.25f, _levelLayerMask);
             //Debug.Log($"CheckHit: { hitX } { hitZ }");
             return hitX || hitZ;
         }

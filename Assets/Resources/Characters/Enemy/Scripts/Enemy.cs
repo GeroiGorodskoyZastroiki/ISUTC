@@ -84,7 +84,7 @@ public class Enemy : MonoBehaviour
             if (targetDetection == typeof(EnemyVision) && type == typeof(EnemyHearing)) return;
         targetDetection = type;
         targetPlayer = player;
-        Debug.Log(player);
+        Debug.Log(player.GetComponent<Player>().steamId);
         Debug.Log(targetDetection.ToString());
         StopAllCoroutines();
         StartCoroutine(Pursuit());
@@ -194,7 +194,6 @@ public class Enemy : MonoBehaviour
     {
         if (targetPlayer.GetComponent<NetworkObject>().IsLocalPlayer) GameManager.Instance.MakePlayerSpectator();
         if (NetworkManager.Singleton.IsHost) targetPlayer.GetComponent<NetworkObject>().Despawn();
-        //Destroy(targetPlayer);
 
         targetDetection = null;
         targetPlayer = null;

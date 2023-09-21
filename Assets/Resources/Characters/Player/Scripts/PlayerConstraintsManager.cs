@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-public class ConstraintsManager : MonoBehaviour
+public class PlayerConstraintsManager : MonoBehaviour
 {
     [SerializeField] MultiRotationConstraint leftArmConstraint;
     Animator animator;

@@ -63,10 +63,9 @@ public class GameManager : MonoBehaviour
     public void SpawnEnemy()
     {
         var enemySpawnPoints = GameObject.FindGameObjectsWithTag("EnemySpawnPoint").ToList();
-        var randomSpawnPoint = enemySpawnPoints[UnityEngine.Random.Range(0, enemySpawnPoints.Count)];
+        var randomSpawnPoint = enemySpawnPoints[Random.Range(0, enemySpawnPoints.Count)];
         GameObject enemy = Instantiate(this.enemy, randomSpawnPoint.transform.position, randomSpawnPoint.transform.rotation);
         enemy.GetComponent<Enemy>().enabled = true;
-        enemy.GetComponentInChildren<EnemyVision>(true).enabled = true;
         enemy.GetComponent<NetworkObject>().Spawn(true);
     }
 
@@ -75,8 +74,8 @@ public class GameManager : MonoBehaviour
         var itemSpawnPoints = GameObject.FindGameObjectsWithTag("ItemSpawnPoint").ToList();
         for (int i = 0; i < itemsCount; i++)
         {
-            var selectedSpawnPoint = itemSpawnPoints[UnityEngine.Random.Range(0, itemSpawnPoints.Count)];
-            GameObject item = Instantiate(items[UnityEngine.Random.Range(0, itemSpawnPoints.Count)], selectedSpawnPoint.transform.position, selectedSpawnPoint.transform.rotation);
+            var selectedSpawnPoint = itemSpawnPoints[Random.Range(0, itemSpawnPoints.Count)];
+            GameObject item = Instantiate(items[Random.Range(0, items.Length)], selectedSpawnPoint.transform.position, selectedSpawnPoint.transform.rotation);
             item.GetComponent<NetworkObject>().Spawn(true);
             itemSpawnPoints.Remove(selectedSpawnPoint);
         }
@@ -95,7 +94,6 @@ public class GameManager : MonoBehaviour
         if (players.Count == 0) return;
         players[0].GetComponentInChildren<Camera>(true).gameObject.SetActive(true);
         UIManager.Open(UIManager.spectator);
-        Destroy(owner);
     }
 
     void LoadSettings()

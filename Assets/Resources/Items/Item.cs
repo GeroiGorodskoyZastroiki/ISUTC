@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Item : NetworkBehaviour
 {
-    [SerializeField] float outlineThickness;
+    [SerializeField] float _outlineThickness;
 
     void Start()
     {
@@ -13,7 +13,7 @@ public class Item : NetworkBehaviour
     public void DrawOutline(bool draw)
     {
         if (!draw) GetComponent<Renderer>().materials[1].SetFloat("_Thickness", 0);
-        else GetComponent<Renderer>().materials[1].SetFloat("_Thickness", outlineThickness);
+        else GetComponent<Renderer>().materials[1].SetFloat("_Thickness", _outlineThickness);
     }
 
     [ServerRpc(RequireOwnership = false)]

@@ -1,30 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using System.Collections;
 
-public class CharacterSounds : MonoBehaviour
+public class PlayerBreath : MonoBehaviour
 {
     Player player;
     AudioSource audioSource;
 
-    [SerializeField] AudioClip lowExhaustedWalk;
-    [SerializeField] AudioClip lowExhaustedRun;
-    [SerializeField] AudioClip mediumExhaustedWalk;
-    [SerializeField] AudioClip mediumExhaustedRun;
-    [SerializeField] AudioClip highExhaustedWalk;
-    [SerializeField] AudioClip highExhaustedRun;
+    [FoldoutGroup("Sounds")][SerializeField] AudioClip lowExhaustedWalk;
+    [FoldoutGroup("Sounds")][SerializeField] AudioClip lowExhaustedRun;
+    [FoldoutGroup("Sounds")][SerializeField] AudioClip mediumExhaustedWalk;
+    [FoldoutGroup("Sounds")][SerializeField] AudioClip mediumExhaustedRun;
+    [FoldoutGroup("Sounds")][SerializeField] AudioClip highExhaustedWalk;
+    [FoldoutGroup("Sounds")][SerializeField] AudioClip highExhaustedRun;
 
-    float lowExhaustedBreakpoint;
-    float mediumExhaustedBreakpoint;
-    float highExhaustedBreakpoint;
+    [HideInInspector] float lowExhaustedBreakpoint;
+    [HideInInspector] float mediumExhaustedBreakpoint;
+    [HideInInspector] float highExhaustedBreakpoint;
 
-    bool isBreathing = false;
+    [HideInInspector] bool isBreathing = false;
 
     void Start()
     {
-        player = GetComponentInParent<Player>();
         audioSource = GetComponent<AudioSource>();
-        
+        player = GetComponentInParent<Player>();
+
         lowExhaustedBreakpoint = player.MaxStamina * 0.6f;
         mediumExhaustedBreakpoint = player.MaxStamina * 0.45f;
         highExhaustedBreakpoint = player.MaxStamina * 0.15f;

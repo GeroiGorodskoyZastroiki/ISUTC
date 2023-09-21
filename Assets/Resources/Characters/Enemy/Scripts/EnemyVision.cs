@@ -30,8 +30,8 @@ public class EnemyVision : MonoBehaviour
         if (player)
         {
             //Physics.Linecast(transform.position, player.transform.position + new Vector3(0f, 0.9f, 0f), out var hit, 9);
-            Physics.SphereCast(transform.position + new Vector3(0f, 1.15f, 0f), 0.2f, (player.transform.position + new Vector3(0f, 0.9f, 0f)) - transform.position, out var hit, LOSRange, 9);
             Debug.DrawLine(transform.position, player.transform.position + new Vector3(0f, 0.9f, 0f), Color.red);
+            Physics.SphereCast(transform.position + new Vector3(0f, 1.15f, 0f), 0.2f, (player.transform.position + new Vector3(0f, 0.9f, 0f)) - transform.position, out var hit, LOSRange);
             if (hit.transform)
             {
                 if (hit.transform.gameObject == player.gameObject) enemy.TargetFound(type, player.gameObject);
