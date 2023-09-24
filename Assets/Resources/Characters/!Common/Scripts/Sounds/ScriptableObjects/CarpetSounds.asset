@@ -14,5 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Materials:
   - {fileID: 2100000, guid: dd66d467961812f4383351e477499b93, type: 2}
-  FootstepsSounds:
-  - {fileID: 8300000, guid: 5b1b0a95281f46147bec016f1dd3e6fd, type: 3}
+  FootstepsSounds: []

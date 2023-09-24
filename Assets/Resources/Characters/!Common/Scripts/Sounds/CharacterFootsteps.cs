@@ -28,8 +28,8 @@ public abstract class CharacterFootsteps : MonoBehaviour
             isPlaying = false;
             yield break;
         }
-        Material materialUnderCharacter = hitInfo.transform.GetComponent<Renderer>().sharedMaterial;
-        int index = materialSounds.IndexOf(materialSounds.First(x => x.Materials.Exists(x => (x.name == (materialUnderCharacter.parent == null ? materialUnderCharacter.name : materialUnderCharacter.parent.name) == true))));
+        Material materialUnderCharacter = hitInfo.transform.GetComponent<MeshRenderer>().sharedMaterial;
+        int index = materialSounds.IndexOf(materialSounds.First(x => x.Materials.Exists(x => (x.name == materialUnderCharacter.name == true))));
         audioSource.PlayOneShot(materialSounds[index].FootstepsSounds[Random.Range(0, materialSounds[index].FootstepsSounds.Count)]);
         yield return new WaitForSeconds(0.2f);
         isPlaying = false;

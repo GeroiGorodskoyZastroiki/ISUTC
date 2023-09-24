@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 [CreateAssetMenu(fileName = "MaterialSounds", menuName = "ScriptableObjects/MaterialSounds")]
 public class MaterialSounds : ScriptableObject
 {
-    [InfoBox("Only original materials, NOT material variants!")]
+    [InfoBox("All material variants MUST be included separately!")]
     public List<Material> Materials;
     public List<AudioClip> FootstepsSounds;
 }
