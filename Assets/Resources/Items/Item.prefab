@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ff890d13bb05d24bbb5c75c1b6fcdd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineThickness: 1.1
+  _outlineThickness: 1.05
 --- !u!114 &1580641314108001434
 MonoBehaviour:
   m_ObjectHideFlags: 0

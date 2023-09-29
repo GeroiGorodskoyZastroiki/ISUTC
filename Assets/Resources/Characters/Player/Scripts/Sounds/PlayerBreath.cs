@@ -1,6 +1,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class PlayerBreath : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class PlayerBreath : MonoBehaviour
 
     void Start()
     {
+        if (!lowExhaustedWalk) throw new NullReferenceException();
         audioSource = GetComponent<AudioSource>();
         player = GetComponentInParent<Player>();
 

@@ -1355,12 +1355,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf3ec5c022982ba4884fdbb85b9ca4ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lowExhaustedWalk: {fileID: 0}
-  lowExhaustedRun: {fileID: 0}
-  mediumExhaustedWalk: {fileID: 0}
-  mediumExhaustedRun: {fileID: 0}
-  highExhaustedWalk: {fileID: 0}
-  highExhaustedRun: {fileID: 0}
+  lowExhaustedWalk: {fileID: 8300000, guid: b488077aab64dc34e9f2eeda65be2267, type: 3}
+  lowExhaustedRun: {fileID: 8300000, guid: 518f13186cc6c16409209525d04f60cd, type: 3}
+  mediumExhaustedWalk: {fileID: 8300000, guid: 5b1b0a95281f46147bec016f1dd3e6fd, type: 3}
+  mediumExhaustedRun: {fileID: 8300000, guid: 3c4de86429f48d747a2bd70e8307e084, type: 3}
+  highExhaustedWalk: {fileID: 8300000, guid: 13e904cb36364c344ad614cd801bced1, type: 3}
+  highExhaustedRun: {fileID: 8300000, guid: a05c83a6777f8024bb3f2b643e906318, type: 3}
 --- !u!1 &2770604231828016392
 GameObject:
   m_ObjectHideFlags: 0
@@ -3082,8 +3082,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84674b1f75227ef42b5758d18e8dfe14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  materialSounds:
-  - {fileID: 11400000, guid: 07887b7ae7c574f4a93439c135b3b8ec, type: 2}
 --- !u!1 &5180894507130482311
 GameObject:
   m_ObjectHideFlags: 0

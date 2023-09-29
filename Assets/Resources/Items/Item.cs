@@ -1,9 +1,10 @@
+using Sirenix.OdinInspector;
 using Unity.Netcode;
 using UnityEngine;
 
 public class Item : NetworkBehaviour
 {
-    [SerializeField] float _outlineThickness;
+    [MinValue(1.01f)][SerializeField] float _outlineThickness;
 
     void Start()
     {

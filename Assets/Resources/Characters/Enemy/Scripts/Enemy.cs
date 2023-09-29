@@ -84,7 +84,7 @@ public class Enemy : MonoBehaviour
             if (targetDetection == typeof(EnemyVision) && type == typeof(EnemyHearing)) return;
         targetDetection = type;
         targetPlayer = player;
-        Debug.Log(player.GetComponent<Player>().steamId);
+        Debug.Log(player.GetComponent<Player>().steamId.Value);
         Debug.Log(targetDetection.ToString());
         StopAllCoroutines();
         StartCoroutine(Pursuit());
