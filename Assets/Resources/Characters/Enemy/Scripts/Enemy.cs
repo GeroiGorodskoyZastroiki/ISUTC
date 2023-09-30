@@ -196,6 +196,7 @@ public class Enemy : MonoBehaviour
         targetPlayer = null;
 
         yield return new WaitForSeconds(0.5f);
+        Debug.Log("AfterKill");
         StartCoroutine(Patrol());
         yield break;
     }

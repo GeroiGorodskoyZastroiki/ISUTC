@@ -18,8 +18,13 @@ public class ExitZone : MonoBehaviour
             int itemsCount = FindObjectsByType<Item>(FindObjectsSortMode.None).Length;
             if (itemsCount == 0)
             {
+                Debug.Log("ItemsCount0");
                 if (player.NetworkObject.IsOwner) GameManager.Instance.MakePlayerSpectator();
-                if (NetworkManager.Singleton.IsHost) player.GetComponent<NetworkObject>().Despawn();
+                if (NetworkManager.Singleton.IsHost)
+                {
+                    Debug.Log("CollisionOnHost");
+                    player.GetComponent<NetworkObject>().Despawn();
+                }
             }
         }
     }

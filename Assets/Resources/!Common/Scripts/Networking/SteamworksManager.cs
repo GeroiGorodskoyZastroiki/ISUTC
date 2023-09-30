@@ -121,7 +121,6 @@ public class SteamworksManager : MonoBehaviour
     private void OnLobbyGameCreated(Lobby lobby, uint ip, ushort port, SteamId steamId)
     {
         UIManager.lobby.SetActive(false);
-        Debug.Log("GameCreated");
         GameManager.Instance.SpawnPlayers();
         if (NetworkManager.Singleton.IsHost)
         {
