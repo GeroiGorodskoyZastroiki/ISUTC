@@ -126,10 +126,7 @@ public class Enemy : MonoBehaviour
             yield return null;
         }
 
-        if (targetPlayer)
-        {
-            yield return Kill();
-        }
+        if (targetPlayer) StartCoroutine(Kill());
         else
         {
             yield return new WaitForSeconds(2);
@@ -192,7 +189,7 @@ public class Enemy : MonoBehaviour
 
     IEnumerator Kill()
     {
-        if (targetPlayer.GetComponent<NetworkObject>().IsLocalPlayer) GameManager.Instance.MakePlayerSpectator();
+        if (targetPlayer.GetComponent<NetworkObject>().IsOwner) GameManager.Instance.MakePlayerSpectator();
         if (NetworkManager.Singleton.IsHost) targetPlayer.GetComponent<NetworkObject>().Despawn();
 
         targetDetection = null;
