@@ -28,6 +28,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: StandaloneWindows
+          buildName: ISUTC
 
       - name: Upload Result
         uses: actions/upload-artifact@v3
@@ -53,7 +54,7 @@ jobs:
       
       - name: Push Artifacts to Destination Repository
         run: |
-          cp -r ${{ github.workspace }}/build ISUTC-build/
+          cp -r ${{ github.workspace }}/build/* ISUTC-build/
           cd ISUTC-build
           git config --global user.email "${{ secrets.UNITY_EMAIL }}"
           git config --global user.name "${{ secrets.GH_NAME }}"
