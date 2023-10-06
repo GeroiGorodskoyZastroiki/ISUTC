@@ -7,13 +7,11 @@ jobs:
     name: Build Game
     runs-on: ubuntu-latest
     steps:
-      # Checkout
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
           lfs: true
 
-      # Cache
       - name: Cache Library
         uses: actions/cache@v3
         with:
@@ -22,7 +20,6 @@ jobs:
           restore-keys: |
             Library-
 
-      # Build
       - name: Build Game
         uses: game-ci/unity-builder@v3
         env:
@@ -32,9 +29,21 @@ jobs:
         with:
           targetPlatform: StandaloneWindows
 
-      # Output
       - name: Upload Result
         uses: actions/upload-artifact@v3
         with:
           name: Build
           path: build
+
+      - name: Clone Destination Repository
+        run: |
+          git clone https://${{ secrets.PAT }}@github.com/GeroiGorodskoyZastroiki/ISUTC-build.git
+          cd ISUTC-build
+
+      - name: Push Artifacts to Destination Repository
+        run: |
+          cp -r ${{ github.workspace }}/build ISUTC-build/
+          cd ISUTC-build
+          git add .
+          git commit -m "Add artifacts"
+          git push
