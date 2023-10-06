@@ -61,4 +61,4 @@ jobs:
           git checkout -b test
           git add .
           git commit -m "Add artifacts"
-          git push origin test
+          git push -f origin test
