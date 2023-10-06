@@ -49,7 +49,7 @@ jobs:
 
       - name: Clone Destination Repository
         run: |
-          git clone https://github.com/GeroiGorodskoyZastroiki/ISUTC-build.git
+          git clone https://${{ secrets.GH_PAT }}@github.com/GeroiGorodskoyZastroiki/ISUTC-build.git
           cd ISUTC-build
       
       - name: Push Artifacts to Destination Repository
@@ -60,4 +60,4 @@ jobs:
           git config --global user.name "${{ secrets.GH_NAME }}"
           git add .
           git commit -m "Add artifacts"
-          git push
+          git push origin test
