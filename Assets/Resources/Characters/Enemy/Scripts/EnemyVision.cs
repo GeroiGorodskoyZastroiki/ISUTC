@@ -15,8 +15,8 @@ public class EnemyVision : MonoBehaviour
 
     void OnTriggerStay(Collider collider)
     {
-        collider.TryGetComponent<Player>(out var player);
-        collider.TryGetComponent<FlashlightCast>(out var flash);
+        var player = collider.GetComponentInChildren<Player>(true);
+        var flash = collider.GetComponentInChildren<FlashlightCast>(true);
         if (flash)
         {
             if (flash.gameObject.transform.parent.GetComponentInChildren<Light>().enabled)
