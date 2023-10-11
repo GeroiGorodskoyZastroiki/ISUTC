@@ -12,20 +12,17 @@ public class ExitZone : MonoBehaviour
 
     void OnTriggerStay(Collider collider)
     {
-        collider.TryGetComponent<Player>(out Player player);
+        if (!NetworkManager.Singleton.IsHost) return;
+        collider.TryGetComponent<PlayerTag>(out var player);
         if (player)
         {
             int itemsCount = FindObjectsByType<Item>(FindObjectsSortMode.None).Length;
             if (itemsCount == 0)
             {
-                Debug.Log("ItemsCount=0");
-                if (player.NetworkObject.IsOwner) GameManager.Instance.MakePlayerSpectator();
-                Debug.Log("AfterSpectator");
-                if (NetworkManager.Singleton.IsHost)
-                {
-                    Debug.Log("CollisionOnHost");
-                    player.GetComponent<NetworkObject>().Despawn();
-                }
+                Debug.Log("ExitZonePreDespawn");
+                Destroy(player);
+                //player.GetComponent<NetworkObject>().Despawn();
+                Debug.Log("ExitZoneAfterDespawn");
             }
         }
     }

@@ -890,13 +890,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetPlayer: {fileID: 0}
   state: 0
-  pursuitAftertime: 0.85
+  pursuitAftertime: 0.75
   patrolSearchPoints: 3
   patrolSearchTime: 2
   pursuitSearchPoints: 3
   pursuitSearchTime: 1
   MoveSpeed: 4.5
-  SprintSpeed: 7
+  SprintSpeed: 6.8
   targetSpeed: 0
   moveDirection: {x: 0, y: 0}
   moveVelocity: {x: 0, y: 0, z: 0}

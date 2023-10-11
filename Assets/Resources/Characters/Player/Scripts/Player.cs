@@ -149,20 +149,24 @@ public class Player : NetworkBehaviour
 
     public override void OnNetworkDespawn()
     {
+        Debug.Log("OnNetworkDespawnPre");
         GameManager.Instance.players.Remove(gameObject);
-        //if (NetworkObject.IsLocalPlayer) GameManager.Instance.MakePlayerSpectator();
 
         if (!GameManager.Instance.gameStarted)
         {
             var PLUI = FindObjectsByType<PlayerLobbyUI>(FindObjectsSortMode.None).SingleOrDefault(x => x.player == gameObject);
             if (PLUI) Destroy(PLUI.gameObject);
         }
+        else if (NetworkObject.IsOwner) GameManager.Instance.MakePlayerSpectator();
+        Debug.Log("OnNetworkDespawnAfter");
         base.OnNetworkDespawn();
+        Debug.Log("OnNetworkDespawnAfterBase");
     }
 
     IEnumerator Spawn()
     {
-        transform.position = GameObject.FindGameObjectsWithTag("LobbySpawnPoint")[OwnerClientId].transform.position;
+        Debug.Log($"OwnerClientId: {OwnerClientId}");
+        transform.position = GameObject.FindGameObjectsWithTag("LobbySpawnPoint")[OwnerClientId].transform.position; //фикс out of range
         transform.LookAt(Camera.main.transform);
         transform.rotation = Quaternion.Euler(new Vector3(0f, transform.rotation.eulerAngles.y, 0f));
         SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetSceneByName("Banka"));
@@ -176,6 +180,7 @@ public class Player : NetworkBehaviour
             steamId.OnValueChanged += OnSteamIdChanged;
             UpdateSteamId();
         }
+        Debug.Log($"SteamId: {steamId.Value}");
         yield return new WaitForSeconds(2);
         UIManager.lobby.GetComponent<LobbyUI>().CreatePlayerInfo(gameObject);
         yield break;
@@ -225,7 +230,7 @@ public class Player : NetworkBehaviour
     {
         bool CheckCollisionWithObstacle()
         {
-            float capsuleRadius = 0.45f;
+            float capsuleRadius = 0.36f;
             Vector3 capsuleBottomPoint = transform.position + new Vector3(0, _controller.stepOffset + capsuleRadius/2 + 0.01f, 0f);
             Vector3 capsuleTopPoint = transform.position + new Vector3(0, 1.8f - capsuleRadius/2, 0f);
             Vector3 directionX = transform.rotation * new Vector3(_moveDirection.x, 0f, 0f);

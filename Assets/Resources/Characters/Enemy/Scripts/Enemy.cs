@@ -45,6 +45,12 @@ public class Enemy : MonoBehaviour
 
     void Awake()
     {
+        if (!NetworkManager.Singleton.IsHost)
+        {
+            Destroy(GetComponentInChildren<EnemyVision>());
+            Destroy(GetComponentInChildren<EnemyHearing>());
+            Destroy(this);
+        }
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
     }
@@ -189,8 +195,8 @@ public class Enemy : MonoBehaviour
 
     IEnumerator Kill()
     {
-        if (targetPlayer.GetComponent<NetworkObject>().IsOwner) GameManager.Instance.MakePlayerSpectator();
-        if (NetworkManager.Singleton.IsHost) targetPlayer.GetComponent<NetworkObject>().Despawn();
+        Destroy(targetPlayer);
+        //targetPlayer.GetComponent<NetworkObject>().Despawn();
 
         targetDetection = null;
         targetPlayer = null;

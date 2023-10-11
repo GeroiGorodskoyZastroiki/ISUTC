@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < itemsCount; i++)
         {
             var selectedSpawnPoint = itemSpawnPoints[Random.Range(0, itemSpawnPoints.Count)];
-            GameObject item = Instantiate(items[Random.Range(0, items.Length)], selectedSpawnPoint.transform.position, selectedSpawnPoint.transform.rotation);
+            GameObject item = Instantiate(items[Random.Range(0, items.Length)], selectedSpawnPoint.transform.position + new Vector3(0, 0.016f, 0), selectedSpawnPoint.transform.rotation);
             item.GetComponent<NetworkObject>().Spawn(true);
             itemSpawnPoints.Remove(selectedSpawnPoint);
         }
@@ -84,8 +84,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject GetPlayer(GameObject player, bool next)
     {
+        Debug.Log($"Players count: {players.Count}");
         if (players.Count == 1) return player;
         var index = players.FindIndex(x => x == player);
+        Debug.Log($"Next player is {players[index + 1].name}");
         return (next ? players[index + 1] : players[index - 1]);
     }
 

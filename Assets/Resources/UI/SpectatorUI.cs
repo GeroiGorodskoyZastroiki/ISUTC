@@ -7,15 +7,17 @@ public class SpectatorUI : MonoBehaviour
         UIManager.HideCursor(false);
     }
 
-    public void NextPlayer()
+    public void NextPlayer() //null refernce exception
     {
-        Camera.main.gameObject.SetActive(false);
-        GameManager.Instance.GetPlayer(Camera.main.GetComponentInParent<Player>(true).gameObject, true).GetComponentInChildren<Camera>(true).gameObject.SetActive(true);
+        GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
+        GameManager.Instance.GetPlayer(GameObject.FindGameObjectWithTag("MainCamera").GetComponentInParent<Player>(true).gameObject, true)
+            .GetComponentInChildren<Camera>(true).gameObject.SetActive(true);
     }
 
     public void PrevPlayer()
     {
-        Camera.main.gameObject.SetActive(false);
-        GameManager.Instance.GetPlayer(Camera.main.GetComponentInParent<Player>(true).gameObject, false).GetComponentInChildren<Camera>(true).gameObject.SetActive(true);
+        GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
+        GameManager.Instance.GetPlayer(GameObject.FindGameObjectWithTag("MainCamera").GetComponentInParent<Player>(true).gameObject, false)
+            .GetComponentInChildren<Camera>(true).gameObject.SetActive(true);
     }
 }
