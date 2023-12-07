@@ -31,7 +31,7 @@ namespace SteamAudio
 
             EditorGUILayout.PropertyField(mMaterial);
 
-            if (tgt.transform.childCount != 0) 
+            if (tgt.transform.childCount != 0)
             {
                 EditorGUILayout.PropertyField(mExportAllChildren);
             }

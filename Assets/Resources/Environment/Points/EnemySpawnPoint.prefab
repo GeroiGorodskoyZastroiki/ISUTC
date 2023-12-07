@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8008965040776040824}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.27, y: 0, z: -0.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7805142570494570403
 MonoBehaviour:
@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6784cc1f1c5a174e90835361155d243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 0, b: 0, a: 1}
-  offset: {x: 0, y: 0, z: 0}
-  alwaysVisible: 1
-  radius: 0.5
+  Color: {r: 1, g: 0, b: 0, a: 0.5882353}
+  Offset: {x: 0, y: 0, z: 0}
+  AlwaysVisible: 1
+  Radius: 0.5
 --- !u!114 &8351104372595851135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cda0b4069f4624642a6fbd958f7739ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 0, b: 0, a: 1}
-  offset: {x: 0, y: 0, z: 0}
-  alwaysVisible: 1
-  lenght: 1
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Offset: {x: 0, y: 0, z: 0}
+  AlwaysVisible: 1
+  Lenght: 1

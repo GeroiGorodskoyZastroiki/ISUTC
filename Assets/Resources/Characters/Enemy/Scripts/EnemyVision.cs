@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class EnemyVision : MonoBehaviour
 {
-    [SerializeField] float LOSRange; 
+    [SerializeField] private float _losRange;
 
-    Enemy enemy;
-    System.Type type;
+    private Enemy _enemy;
+    private System.Type _type;
 
-    void Start()
+    private void Start()
     {
-        enemy = GetComponentInParent<Enemy>();
-        type = this.GetType();
+        _enemy = GetComponentInParent<Enemy>();
+        _type = GetType();
     }
 
-    void OnTriggerStay(Collider collider)
+    private void OnTriggerStay(Collider collider)
     {
         var player = collider.GetComponent<PlayerTag>();
         var flash = collider.GetComponent<FlashlightCast>();
@@ -21,15 +21,15 @@ public class EnemyVision : MonoBehaviour
         if (player)
         {
             Debug.DrawLine(transform.position, player.transform.position + new Vector3(0f, 0.9f, 0f), Color.red);
-            Physics.SphereCast(transform.position + new Vector3(0f, 1.15f, 0f), 0.2f, (player.transform.position + new Vector3(0f, 0.9f, 0f)) - transform.position, out var hit, LOSRange);
+            Physics.SphereCast(transform.position + new Vector3(0f, 1.15f, 0f), 0.2f, (player.transform.position + new Vector3(0f, 0.9f, 0f)) - transform.position, out var hit, _losRange);
             if (hit.transform)
             {
                 if (hit.transform.gameObject == player.gameObject)
                 {
-                    enemy.TargetFound(type, player.gameObject);
+                    _enemy.TargetFound(_type, player.gameObject);
                     return;
                 }
-                else enemy.TargetLost(type);
+                else _enemy.TargetLost(_type);
             }
         }
         if (flash)
@@ -37,18 +37,17 @@ public class EnemyVision : MonoBehaviour
             if (flash.gameObject.transform.parent.GetComponentInChildren<Light>().enabled)
             {
                 player = flash.GetComponentInParent<PlayerTag>();
-                enemy.TargetFound(type, player.gameObject);
-                return;
+                _enemy.TargetFound(_type, player.gameObject);
             }
-            else enemy.TargetLost(type);
+            else _enemy.TargetLost(_type);
         }
     }
 
-    void OnTriggerExit(Collider collider)
+    private void OnTriggerExit(Collider collider)
     {
         var player = collider.GetComponent<PlayerTag>();
-        if (player) enemy.TargetLost(type);
+        if (player) _enemy.TargetLost(_type);
         var flash = collider.GetComponent<FlashlightCast>();
-        if (flash) enemy.TargetLost(type);
+        if (flash) _enemy.TargetLost(_type);
     }
 }

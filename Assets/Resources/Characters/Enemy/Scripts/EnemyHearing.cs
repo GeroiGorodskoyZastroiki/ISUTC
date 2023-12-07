@@ -3,18 +3,18 @@ using UnityEngine.AI;
 
 public class EnemyHearing : MonoBehaviour
 {
-    Enemy enemy;
-    NavMeshAgent agent;
+    private Enemy _enemy;
+    private NavMeshAgent _agent;
 
-    public float hearingDistanceIndirect;
-  
-    void Start()
+    public float HearingDistanceIndirect;
+
+    private void Start()
     {
-        enemy = GetComponentInParent<Enemy>();
-        agent = enemy.GetComponent<NavMeshAgent>();
+        _enemy = GetComponentInParent<Enemy>();
+        _agent = _enemy.GetComponent<NavMeshAgent>();
     }
 
-    void Update()
+    private void Update()
     {
         float nearestDistance = Mathf.Infinity;
         GameObject targetPlayer = null;
@@ -23,11 +23,11 @@ public class EnemyHearing : MonoBehaviour
             if (!soundEmitter.GetComponent<AudioSource>().isPlaying)
             {
                 //if (enemy.targetPlayer == soundEmitter.GetComponentInParent<Player>().gameObject)
-                if (enemy.targetPlayer != null) enemy.TargetLost(this.GetType());
+                if (_enemy.TargetPlayer != null) _enemy.TargetLost(GetType());
                 return;
             }
-            NavMeshPath path = new NavMeshPath();
-            bool pathCalculated = agent.CalculatePath(soundEmitter.transform.position, path);
+            NavMeshPath path = new();
+            bool pathCalculated = _agent.CalculatePath(soundEmitter.transform.position, path);
             if (pathCalculated && path.CalculateDistance() < nearestDistance)
             {
                 nearestDistance = path.CalculateDistance();
@@ -35,7 +35,7 @@ public class EnemyHearing : MonoBehaviour
             }
         }
         Debug.Log(nearestDistance);
-        if (nearestDistance < hearingDistanceIndirect) enemy.TargetFound(this.GetType(), targetPlayer);
-        else enemy.TargetLost(this.GetType());
+        if (nearestDistance < HearingDistanceIndirect) _enemy.TargetFound(GetType(), targetPlayer);
+        else _enemy.TargetLost(GetType());
     }
 }

@@ -25,12 +25,12 @@ namespace SteamAudio
         {
             switch (type)
             {
-            case AudioEngineType.Unity:
-                return new UnityAudioEngineSource();
-            case AudioEngineType.FMODStudio:
-                return new FMODStudioAudioEngineSource();
-            default:
-                return null;
+                case AudioEngineType.Unity:
+                    return new UnityAudioEngineSource();
+                case AudioEngineType.FMODStudio:
+                    return new FMODStudioAudioEngineSource();
+                default:
+                    return null;
             }
         }
     }

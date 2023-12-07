@@ -50,7 +50,7 @@ namespace SteamAudio
         {
             BindToFMODStudioPlugin();
 
-            return ((MonoBehaviour) GameObject.FindObjectOfType(FMODUnity_StudioListener)).transform;
+            return ((MonoBehaviour)GameObject.FindObjectOfType(FMODUnity_StudioListener)).transform;
         }
 
         public override AudioSettings GetAudioSettings()
@@ -64,11 +64,11 @@ namespace SteamAudio
             var speakerMode = Activator.CreateInstance(FMOD_SPEAKERMODE);
             var getSoftwareFormatArgs = new object[] { 0, speakerMode, 0 };
             FMOD_System_getSoftwareFormat.Invoke(fmodSystem, getSoftwareFormatArgs);
-            audioSettings.samplingRate = (int) getSoftwareFormatArgs[0];
+            audioSettings.samplingRate = (int)getSoftwareFormatArgs[0];
 
             var getDSPBufferSizeArgs = new object[] { 0u, 0 };
             FMOD_System_getDSPBufferSize.Invoke(fmodSystem, getDSPBufferSizeArgs);
-            audioSettings.frameSize = (int) ((uint) getDSPBufferSizeArgs[0]);
+            audioSettings.frameSize = (int)((uint)getDSPBufferSizeArgs[0]);
 
             return audioSettings;
         }

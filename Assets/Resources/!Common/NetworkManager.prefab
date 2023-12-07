@@ -48,9 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NetworkConfig:
     ProtocolVersion: 0
-    NetworkTransport: {fileID: 1193648400030109216}
-    PlayerPrefab: {fileID: 7464074104819034232, guid: 9d19ffdcd1b365c4ebbebb84b6dc3ac2,
-      type: 3}
+    NetworkTransport: {fileID: 0}
+    PlayerPrefab: {fileID: 0}
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: 84c3c166d98912645bc367706b3e5eab, type: 2}
@@ -64,7 +63,7 @@ MonoBehaviour:
     EnableSceneManagement: 1
     ForceSamePrefabs: 1
     RecycleNetworkIds: 1
-    NetworkIdRecycleDelay: 120
+    NetworkIdRecycleDelay: 0
     RpcHashSize: 0
     LoadSceneTimeOut: 120
     SpawnTimeout: 1
@@ -99,3 +98,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97a6f951770d0c4bb32fcdd1f9bdfe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NetworkPrefabs: {fileID: 11400000, guid: 84c3c166d98912645bc367706b3e5eab, type: 2}

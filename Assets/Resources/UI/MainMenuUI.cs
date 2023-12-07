@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class MainMenuUI : MonoBehaviour
 {
-    void OnEnable() => UIManager.HideCursor(false);
+    private void OnEnable() => UIManager.HideCursor(false);
 
     public async void CreateLobby()
     {
         await SteamworksManager.Instance.StartHost();
-        UIManager.Open(UIManager.lobby);
+        UIManager.Open(UIManager.Lobby);
     }
 
     public void Settings() => UICommonMethods.Settings();

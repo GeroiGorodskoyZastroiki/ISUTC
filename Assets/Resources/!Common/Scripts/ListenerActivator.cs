@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ListenerActivator : MonoBehaviour
 {
-    void OnEnable()
+    private void OnEnable()
     {
         SteamAudio.SteamAudioManager.Singleton.ChangeListener(transform);
         tag = "MainCamera";

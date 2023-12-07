@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class PlayerPrefsManager : MonoBehaviour
 {
-    void Start()
+    private void Start()
     {
-        SettingsUI settings = UIManager.settings.GetComponent<SettingsUI>();
-        settings.audioMixer.SetFloat("MasterVolume", settings.ConvertToDB(PlayerPrefs.GetFloat("MasterVolume", 100)));
-        settings.audioMixer.SetFloat("GameVolume", settings.ConvertToDB(PlayerPrefs.GetFloat("GameVolume", 100)));
-        settings.audioMixer.SetFloat("MusicVolume", settings.ConvertToDB(PlayerPrefs.GetFloat("MusicVolume", 100)));
-        settings.audioMixer.SetFloat("VoiceChatVolume", settings.ConvertToDB(PlayerPrefs.GetFloat("VoiceChatVolume", 100)));
+        SettingsUI settings = UIManager.Settings.GetComponent<SettingsUI>();
+        settings.AudioMixer.SetFloat("MasterVolume", settings.ConvertToDB(PlayerPrefs.GetFloat("MasterVolume", 100)));
+        settings.AudioMixer.SetFloat("GameVolume", settings.ConvertToDB(PlayerPrefs.GetFloat("GameVolume", 100)));
+        settings.AudioMixer.SetFloat("MusicVolume", settings.ConvertToDB(PlayerPrefs.GetFloat("MusicVolume", 100)));
+        settings.AudioMixer.SetFloat("VoiceChatVolume", settings.ConvertToDB(PlayerPrefs.GetFloat("VoiceChatVolume", 100)));
     }
 }

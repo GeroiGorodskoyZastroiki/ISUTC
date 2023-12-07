@@ -5,37 +5,37 @@ using UnityEngine.UI;
 
 public class SettingsUI : MonoBehaviour
 {
-    public AudioMixer audioMixer;
-    [SerializeField] Slider masterVolumeSlider;
-    [SerializeField] Slider gameVolumeSlider;
-    [SerializeField] Slider musicVolumeSlider;
-    [SerializeField] Slider voiceChatVolumeSlider;
-    [SerializeField] Slider mouseSensitivitySlider;
+    public AudioMixer AudioMixer;
+    [SerializeField] private Slider _masterVolumeSlider;
+    [SerializeField] private Slider _gameVolumeSlider;
+    [SerializeField] private Slider _musicVolumeSlider;
+    [SerializeField] private Slider _voiceChatVolumeSlider;
+    [SerializeField] private Slider _mouseSensitivitySlider;
 
-    void Start()
+    private void Start()
     {
         SetSliders();
     }
 
     public void SetSliders()
     {
-        masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 100);
-        gameVolumeSlider.value = PlayerPrefs.GetFloat("GameVolume", 100);
-        musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 100);
-        voiceChatVolumeSlider.value = PlayerPrefs.GetFloat("VoiceChatVolume", 100);
-        mouseSensitivitySlider.value = PlayerPrefs.GetFloat("MouseSensitivity", 1);
+        _masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 100);
+        _gameVolumeSlider.value = PlayerPrefs.GetFloat("GameVolume", 100);
+        _musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 100);
+        _voiceChatVolumeSlider.value = PlayerPrefs.GetFloat("VoiceChatVolume", 100);
+        _mouseSensitivitySlider.value = PlayerPrefs.GetFloat("MouseSensitivity", 1);
     }
 
     public void SetVolume(string name)
     {
         Slider slider = gameObject.GetComponentsInChildren<Slider>().Single(x => x.name == $"{name}Slider");
-        audioMixer.SetFloat(name, ConvertToDB(slider.value));
+        AudioMixer.SetFloat(name, ConvertToDB(slider.value));
         PlayerPrefs.SetFloat(name, slider.value);
     }
 
     public void SetSensitivity()
     {
-        PlayerPrefs.SetFloat("MouseSensitivity", mouseSensitivitySlider.value);
+        PlayerPrefs.SetFloat("MouseSensitivity", _mouseSensitivitySlider.value);
     }
 
     public float ConvertToDB(float value) => (value >= 100 ? value * 0.2f - 20 : value * 0.8f - 80);
@@ -43,7 +43,7 @@ public class SettingsUI : MonoBehaviour
     public void Back()
     {
         //будет проблема с выключением PauseMenu
-        if (GameManager.Instance.gameStarted) UIManager.Open(UIManager.pauseMenu);
-        else UIManager.Open(UIManager.mainMenu);
+        if (GameManager.Instance.GameStarted) UIManager.Open(UIManager.PauseMenu);
+        else UIManager.Open(UIManager.MainMenu);
     }
 }

@@ -121,7 +121,7 @@ public class TextAssetEditor : Editor
     [DllImport("Shell32.dll", CharSet = CharSet.Unicode, ExactSpelling = true)]
     private static extern IntPtr SHGetFileInfoW(string pszPath, uint dwFileAttributes,
         ref SHFILEINFOW psfi, uint cbFileInfo, uint uFlags);
-        
+
     [StructLayout(LayoutKind.Sequential, Size = (int)SHFILEINFOW_SIZE, CharSet = CharSet.Unicode)]
     private struct SHFILEINFOW
     {
@@ -193,7 +193,7 @@ public class TextAssetEditor : Editor
 
                 if (fileIsReadOnly != false.ToString())
                 {
-                    EditorGUILayout.SelectableLabel(contents, EditorStyles.textArea, 
+                    EditorGUILayout.SelectableLabel(contents, EditorStyles.textArea,
                         GUILayout.MinHeight(300));
                 }
                 else

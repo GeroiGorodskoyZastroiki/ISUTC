@@ -5,66 +5,65 @@ using System;
 
 public class PlayerBreath : MonoBehaviour
 {
-    Player player;
-    AudioSource audioSource;
+    private PlayerMovement _playerMovement;
+    private AudioSource _audioSource;
 
-    [FoldoutGroup("Sounds")][SerializeField] AudioClip lowExhaustedWalk;
-    [FoldoutGroup("Sounds")][SerializeField] AudioClip lowExhaustedRun;
-    [FoldoutGroup("Sounds")][SerializeField] AudioClip mediumExhaustedWalk;
-    [FoldoutGroup("Sounds")][SerializeField] AudioClip mediumExhaustedRun;
-    [FoldoutGroup("Sounds")][SerializeField] AudioClip highExhaustedWalk;
-    [FoldoutGroup("Sounds")][SerializeField] AudioClip highExhaustedRun;
+    [FoldoutGroup("Sounds")][SerializeField] private AudioClip _lowExhaustedWalk;
+    [FoldoutGroup("Sounds")][SerializeField] private AudioClip _lowExhaustedRun;
+    [FoldoutGroup("Sounds")][SerializeField] private AudioClip _mediumExhaustedWalk;
+    [FoldoutGroup("Sounds")][SerializeField] private AudioClip _mediumExhaustedRun;
+    [FoldoutGroup("Sounds")][SerializeField] private AudioClip _highExhaustedWalk;
+    [FoldoutGroup("Sounds")][SerializeField] private AudioClip _highExhaustedRun;
 
-    [HideInInspector] float lowExhaustedBreakpoint;
-    [HideInInspector] float mediumExhaustedBreakpoint;
-    [HideInInspector] float highExhaustedBreakpoint;
+    private float _lowExhaustedBreakpoint;
+    private float _mediumExhaustedBreakpoint;
+    private float _highExhaustedBreakpoint;
 
-    [HideInInspector] bool isBreathing = false;
+    private bool _isBreathing;
 
-    void Start()
+    private void Start()
     {
-        if (!lowExhaustedWalk) throw new NullReferenceException();
-        audioSource = GetComponent<AudioSource>();
-        player = GetComponentInParent<Player>();
+        if (!_lowExhaustedWalk) throw new NullReferenceException();
+        _audioSource = GetComponent<AudioSource>();
+        _playerMovement = GetComponentInParent<PlayerMovement>();
 
-        lowExhaustedBreakpoint = player.MaxStamina * 0.6f;
-        mediumExhaustedBreakpoint = player.MaxStamina * 0.45f;
-        highExhaustedBreakpoint = player.MaxStamina * 0.15f;
+        _lowExhaustedBreakpoint = _playerMovement.MaxStamina * 0.6f;
+        _mediumExhaustedBreakpoint = _playerMovement.MaxStamina * 0.45f;
+        _highExhaustedBreakpoint = _playerMovement.MaxStamina * 0.15f;
     }
 
     private void Update()
     {
-        if (!isBreathing) StartCoroutine(Breathe());
+        if (!_isBreathing) StartCoroutine(Breathe());
     }
 
-    IEnumerator Breathe()
+    private IEnumerator Breathe()
     {
-        isBreathing = true;
+        _isBreathing = true;
         yield return new WaitForSeconds(0.1f);
-        var sound = GetBreatheSound();
+        AudioClip sound = GetBreatheSound();
 
-        if (sound && player.enabled)
+        if (sound && _playerMovement.enabled)
         {
             Debug.Log(sound.name);
-            audioSource.PlayOneShot(sound);
+            _audioSource.PlayOneShot(sound);
         }
-        isBreathing = false;
-        yield break;
+        _isBreathing = false;
     }
 
-    AudioClip GetBreatheSound()
+    private AudioClip GetBreatheSound()
     {
-        if (player.Stamina < lowExhaustedBreakpoint && !audioSource.isPlaying)
+        if (_playerMovement.Stamina < _lowExhaustedBreakpoint && !_audioSource.isPlaying)
         {
-            if (player.Stamina < mediumExhaustedBreakpoint)
+            if (_playerMovement.Stamina < _mediumExhaustedBreakpoint)
             {
-                if (player.Stamina < highExhaustedBreakpoint)
+                if (_playerMovement.Stamina < _highExhaustedBreakpoint)
                 {
-                    return player.TargetSpeed == player.SprintSpeed ? highExhaustedRun : highExhaustedWalk;
+                    return _playerMovement.TargetSpeed == _playerMovement.SprintSpeed ? _highExhaustedRun : _highExhaustedWalk;
                 }
-                return player.TargetSpeed == player.SprintSpeed ? mediumExhaustedRun : mediumExhaustedWalk;
+                return _playerMovement.TargetSpeed == _playerMovement.SprintSpeed ? _mediumExhaustedRun : _mediumExhaustedWalk;
             }
-            return player.TargetSpeed == player.SprintSpeed ? lowExhaustedRun : lowExhaustedWalk;
+            return _playerMovement.TargetSpeed == _playerMovement.SprintSpeed ? _lowExhaustedRun : _lowExhaustedWalk;
         }
         return null;
     }

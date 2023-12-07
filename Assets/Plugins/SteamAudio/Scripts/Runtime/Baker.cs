@@ -297,24 +297,24 @@ namespace SteamAudio
                     // Don't flush the writes to disk just yet, because we can only do it from the main thread.
                     probeBatches[j].probeDataSize = probeBatch.Save(sTasks[i].probeBatchAssets[j], false);
 
-                    var dataSize = (int) probeBatch.GetDataSize(sTasks[i].identifier);
+                    var dataSize = (int)probeBatch.GetDataSize(sTasks[i].identifier);
                     probeBatches[j].AddOrUpdateLayer(sTasks[i].gameObject, sTasks[i].identifier, dataSize);
 
                     if (sTasks[i].identifier.type == BakedDataType.Reflections)
                     {
                         switch (sTasks[i].identifier.variation)
                         {
-                        case BakedDataVariation.Reverb:
-                            (sTasks[i].component as SteamAudioListener).UpdateBakedDataStatistics();
-                            break;
+                            case BakedDataVariation.Reverb:
+                                (sTasks[i].component as SteamAudioListener).UpdateBakedDataStatistics();
+                                break;
 
-                        case BakedDataVariation.StaticSource:
-                            (sTasks[i].component as SteamAudioBakedSource).UpdateBakedDataStatistics();
-                            break;
+                            case BakedDataVariation.StaticSource:
+                                (sTasks[i].component as SteamAudioBakedSource).UpdateBakedDataStatistics();
+                                break;
 
-                        case BakedDataVariation.StaticListener:
-                            (sTasks[i].component as SteamAudioBakedListener).UpdateBakedDataStatistics();
-                            break;
+                            case BakedDataVariation.StaticListener:
+                                (sTasks[i].component as SteamAudioBakedListener).UpdateBakedDataStatistics();
+                                break;
                         }
                     }
                 }

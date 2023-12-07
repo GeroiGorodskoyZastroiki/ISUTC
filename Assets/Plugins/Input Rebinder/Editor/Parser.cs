@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
-using UnityEngine.InputSystem;
-using System;
+﻿using UnityEngine.InputSystem;
 
 /// <summary>
 /// Contains editor code for generating the prefabs from an inputaction file

@@ -1,11 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using System.Collections;
 using UnityEngine.InputSystem;
-using System.Collections.Generic;
-using System;
-using UnityEngine.UI;
-using InputRebinder.Runtime;
 
 using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("com.songyang.inputrebinder.Editor.Tests")]
@@ -169,7 +164,7 @@ namespace InputRebinder.Editor
 
             // generated prefab location
             GUIContent locationTooltip = new GUIContent("Generated Prefab Folder", "Where to store the generated prefab");
-            path = EditorGUILayout.TextField(locationTooltip, string.IsNullOrEmpty(path) ? "Assets/Prefabs": path);
+            path = EditorGUILayout.TextField(locationTooltip, string.IsNullOrEmpty(path) ? "Assets/Prefabs" : path);
 
             // generated prefab name
             GUIContent nameTooltip = new GUIContent("Generated Prefab Name", "Name of the generated prefab. Conflicting file names will be overwritten.");

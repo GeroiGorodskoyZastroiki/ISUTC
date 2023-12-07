@@ -4,7 +4,6 @@
 //
 
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace SteamAudio

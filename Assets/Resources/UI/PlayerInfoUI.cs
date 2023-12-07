@@ -3,53 +3,51 @@ using UnityEngine.UI;
 using TMPro;
 using Steamworks;
 using System.Linq;
-using Unity.Netcode;
 
 public class PlayerLobbyUI : MonoBehaviour
 {
-    public GameObject player;
-    public Friend steamUser;
-    public int skin = 0;
+    public PlayerNetwork PlayerNetwork { get; private set; }
+    public Friend SteamUser;
+    public int Skin;
 
-    public TMP_Text readyStatus;
-    public GameObject skinSelection;
+    public TMP_Text ReadyStatus;
+    public GameObject SkinSelection;
 
     public void Awake() => GetComponent<Canvas>().worldCamera = Camera.main;
 
     public async void SetPlayerInfo(GameObject player)
     {
-        this.player = player;
+        PlayerNetwork = player.GetComponent<PlayerNetwork>();
         //Debug.Log($"Owner id: {player.GetComponent<NetworkObject>().OwnerClientId}");
         //Debug.Log($"Member count: {SteamworksManager.Instance.lobby.Value.Members.ToArray().Length}"); //добавить steamOwner
-        steamUser = SteamworksManager.Instance.lobby.Members.Single(x => x.Id.Value == player.GetComponent<Player>().steamId.Value);//index is outside of bounds
-        GetComponentInChildren<TMP_Text>().text = steamUser.Name;
-        if (!steamUser.IsMe) Destroy(skinSelection);
-        var networkPlayer = player.GetComponent<Player>();
-        networkPlayer.ready.OnValueChanged += GetReady;
-        GetReady(networkPlayer.ready.Value, networkPlayer.ready.Value);
-        GetComponentInChildren<RawImage>().texture = (await steamUser.GetLargeAvatarAsync()).Value.Convert(); //result
+        SteamUser = SteamworksManager.Instance.Lobby.Members.Single(x => x.Id.Value == player.GetComponent<PlayerNetwork>().SteamId.Value); //index is outside of bounds
+        GetComponentInChildren<TMP_Text>().text = SteamUser.Name;
+        if (!SteamUser.IsMe) Destroy(SkinSelection);
+        PlayerNetwork.IsReady.OnValueChanged += GetReady;
+        GetReady(PlayerNetwork.IsReady.Value, PlayerNetwork.IsReady.Value);
+        GetComponentInChildren<RawImage>().texture = (await SteamUser.GetLargeAvatarAsync())?.Convert(); //result
     }
 
     public void SetReady()
     {
-        if (player.GetComponent<Player>().IsLocalPlayer)
+        if (PlayerNetwork.IsLocalPlayer)
         {
-            player.GetComponent<Player>().ready.Value = !player.GetComponent<Player>().ready.Value;
-            readyStatus.text = player.GetComponent<Player>().ready.Value ? "Ready" : "---";
+            PlayerNetwork.IsReady.Value = !PlayerNetwork.IsReady.Value;
+            ReadyStatus.text = PlayerNetwork.IsReady.Value ? "Ready" : "---";
         }
     }
 
-    public void GetReady(bool previous, bool current) => readyStatus.text = current ? "Ready" : "---";
+    public void GetReady(bool previous, bool current) => ReadyStatus.text = current ? "Ready" : "---";
 
     public void NextSkin()
     {
-        skin = skin == 3 ? 0 : skin+1;
-        player.GetComponent<Player>().skin.Value = skin;
+        Skin = Skin == 3 ? 0 : Skin + 1;
+        PlayerNetwork.Skin.Value = Skin;
     }
 
     public void PrevSkin()
     {
-        skin = skin == 0 ? 3 : skin-1;
-        player.GetComponent<Player>().skin.Value = skin;
+        Skin = Skin == 0 ? 3 : Skin - 1;
+        PlayerNetwork.Skin.Value = Skin;
     }
 }

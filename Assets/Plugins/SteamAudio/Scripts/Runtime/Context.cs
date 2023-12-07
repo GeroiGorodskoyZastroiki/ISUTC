@@ -50,18 +50,18 @@ namespace SteamAudio
         {
             switch (level)
             {
-            case LogLevel.Info:
-            case LogLevel.Debug:
-                Debug.Log(message);
-                break;
-            case LogLevel.Warning:
-                Debug.LogWarning(message);
-                break;
-            case LogLevel.Error:
-                Debug.LogError(message);
-                break;
-            default:
-                break;
+                case LogLevel.Info:
+                case LogLevel.Debug:
+                    Debug.Log(message);
+                    break;
+                case LogLevel.Warning:
+                    Debug.LogWarning(message);
+                    break;
+                case LogLevel.Error:
+                    Debug.LogError(message);
+                    break;
+                default:
+                    break;
             }
         }
     }

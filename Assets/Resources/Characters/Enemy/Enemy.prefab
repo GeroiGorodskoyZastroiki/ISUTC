@@ -683,7 +683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f9ddfc3987300642af4909c56b3d5ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hearingDistanceIndirect: 12
+  HearingDistanceIndirect: 0
 --- !u!1 &4652469350404874025
 GameObject:
   m_ObjectHideFlags: 0
@@ -868,7 +868,7 @@ NavMeshAgent:
   m_Acceleration: 40
   avoidancePriority: 50
   m_AngularSpeed: 720
-  m_StoppingDistance: 1.5
+  m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -888,23 +888,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9be22fd07392fc543befc116d2f14677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPlayer: {fileID: 0}
-  state: 0
-  pursuitAftertime: 0.75
-  patrolSearchPoints: 3
-  patrolSearchTime: 2
-  pursuitSearchPoints: 3
-  pursuitSearchTime: 1
-  MoveSpeed: 4.5
-  SprintSpeed: 6.8
-  targetSpeed: 0
-  moveDirection: {x: 0, y: 0}
-  moveVelocity: {x: 0, y: 0, z: 0}
-  animVelocity: {x: 0, y: 0}
-  sprint: 0
-  standStill: 0
-  pursuitTransform: 0
-  destination: {fileID: 0}
+  TargetPlayer: {fileID: 0}
+  State: 0
+  _pursuitAftertime: 0.2
+  _patrolSearchPoints: 2
+  _patrolWaitTime: 1
+  _pursuitSearchPoints: 3
+  _pursuitWaitTime: 1
+  _attackDistance: 1
+  _moveSpeed: 4
+  _sprintSpeed: 8
+  _targetSpeed: 0
+  _moveDirection: {x: 0, y: 0}
+  _moveVelocity: {x: 0, y: 0, z: 0}
+  _animVelocity: {x: 0, y: 0}
+  _sprint: 0
+  _standStill: 0
+  _pursuitTransform: 0
+  _destination: {fileID: 0}
 --- !u!95 &3252672129103048711
 Animator:
   serializedVersion: 7
@@ -2259,7 +2260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12ee44158056a344bfc78a314d51aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LOSRange: 100
+  _losRange: 100
 --- !u!1 &7816068666866335853
 GameObject:
   m_ObjectHideFlags: 0

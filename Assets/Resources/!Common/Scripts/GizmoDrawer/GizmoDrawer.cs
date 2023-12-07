@@ -1,20 +1,20 @@
 ﻿using UnityEngine;
 
-public abstract class GizmoDrawer : MonoBehaviour 
+public abstract class GizmoDrawer : MonoBehaviour
 {
-	public Color color = Color.gray;
+    public Color Color = Color.gray;
 
     [Header("Offset")]
-    public Vector3 offset;
+    public Vector3 Offset;
 
-    [Header ("Other")]
-	[Tooltip ("Whether to always show or not in Scene (Gizmo will always appear if the object is selected)")]
-	public bool alwaysVisible = true;
-   // public bool hideThenSelected = false;
+    [Header("Other")]
+    [Tooltip("Whether to always show or not in Scene (Gizmo will always appear if the object is selected)")]
+    public bool AlwaysVisible = true;
+    // public bool hideThenSelected = false;
     //public bool wireframeMode = false;
 
     public virtual void Draw()
     {
-        Gizmos.color = color;
+        Gizmos.color = Color;
     }
 }

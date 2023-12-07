@@ -5,34 +5,33 @@ using System.Linq;
 
 public abstract class CharacterFootsteps : MonoBehaviour
 {
-    AudioSource audioSource;
-    List<MaterialSounds> materialSounds;
-    protected bool isPlaying = false;
+    private AudioSource _audioSource;
+    private List<MaterialSounds> _materialSounds;
+    protected bool IsPlaying;
 
-    void Start()
+    private void Start()
     {
-        materialSounds = Resources.LoadAll<MaterialSounds>("Characters/!Common/Scripts").ToList();
-        audioSource = GetComponent<AudioSource>();
+        _materialSounds = Resources.LoadAll<MaterialSounds>("Characters/!Common/Scripts").ToList();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     public virtual void ValidateFootstep()
     {
-        if (!isPlaying) StartCoroutine(PlayFootstepSound());
+        if (!IsPlaying) StartCoroutine(PlayFootstepSound());
     }
 
     protected IEnumerator PlayFootstepSound()
     {
-        isPlaying = true;
-        if (!Physics.Raycast(audioSource.transform.position, (-audioSource.transform.up), out RaycastHit hitInfo, audioSource.transform.localPosition.y + 0.05f, LayerMask.GetMask("StaticGeometry")))
+        IsPlaying = true;
+        if (!Physics.Raycast(_audioSource.transform.position, (-_audioSource.transform.up), out RaycastHit hitInfo, _audioSource.transform.localPosition.y + 0.05f, LayerMask.GetMask("StaticGeometry")))
         {
-            isPlaying = false;
+            IsPlaying = false;
             yield break;
         }
         Material materialUnderCharacter = hitInfo.transform.GetComponent<MeshRenderer>().sharedMaterial;
-        int index = materialSounds.IndexOf(materialSounds.First(x => x.Materials.Exists(x => (x.name == materialUnderCharacter.name == true))));
-        audioSource.PlayOneShot(materialSounds[index].FootstepsSounds[Random.Range(0, materialSounds[index].FootstepsSounds.Count)]);
+        int index = _materialSounds.IndexOf(_materialSounds.First(x => x.Materials.Exists(x => x.name == materialUnderCharacter.name)));
+        _audioSource.PlayOneShot(_materialSounds[index].FootstepsSounds[Random.Range(0, _materialSounds[index].FootstepsSounds.Count)]);
         yield return new WaitForSeconds(0.2f);
-        isPlaying = false;
-        yield break;
+        IsPlaying = false;
     }
 }
