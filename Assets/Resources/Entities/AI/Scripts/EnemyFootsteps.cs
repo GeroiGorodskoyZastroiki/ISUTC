@@ -1,7 +1,4 @@
 public class EnemyFootsteps : CharacterFootsteps
 {
-    public override void ValidateFootstep()
-    {
-        base.ValidateFootstep();
-    }
+    public override void TakeStep() => StartCoroutine(PlayFootstepSound(1));
 }

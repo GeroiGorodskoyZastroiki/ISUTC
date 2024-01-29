@@ -17,7 +17,7 @@ public class PlayerAnimator : MonoBehaviour
     }
 
     public void Footstep() =>
-        GetComponentInChildren<PlayerFootsteps>().ValidateFootstep();
+        GetComponentInChildren<PlayerFootsteps>().TakeStep();
 
     private void FixedUpdate() =>
         Animate();
@@ -28,5 +28,7 @@ public class PlayerAnimator : MonoBehaviour
         _animVelocity = Vector3.Lerp(_animVelocity, targetVelocity, 0.25f);
         _animator.SetFloat("VelocityX", _animVelocity.x);
         _animator.SetFloat("VelocityZ", _animVelocity.y);
+        _animator.SetBool("Falling", !Player.Movement.Grounded);
+        _animator.SetBool("Crouching", Player.Movement.Crouch);
     }
 }

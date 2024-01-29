@@ -12,29 +12,33 @@ public class PlayerMovement : MonoBehaviour
     [ReadOnly] public Vector2 MoveDirection;
 
     [Header("Speed")]
+    [SerializeField] private float _crouchSpeed = 2f;
     [SerializeField] private float _walkSpeed = 4f;
     [SerializeField] private float _sprintSpeed = 8f;
     [ReadOnly][SerializeField] private float _targetSpeed;
 
-    [Header("Sprint")]
+    [Header("Stamina")]
     [SerializeField] private float _maxStamina = 15f;
     [SerializeField] private float _staminaDecSpeed = 1f;
     [SerializeField] private float _staminaRegSpeed = 0.5f;
     [SerializeField] private float _staminaDecBreakpoint = 1f;
     [SerializeField] private float _staminaRegBreakpoint = 4f;
     [ReadOnly][SerializeField] private float _stamina;
-    [ReadOnly][SerializeField] public bool Sprint;
+
+    [Header("Modes")]
+    [ReadOnly] public bool Sprint;
+    [ReadOnly] public bool Crouch;
 
     [Header("Fall & Ground")]
     [SerializeField] private float _fallAcceleration = -15.0f; //The character uses its own gravity value. The engine default is -9.81f
-    [ReadOnly][SerializeField] private bool _grounded = true;
+    [ReadOnly] public bool Grounded = true;
     [ReadOnly][SerializeField] private LayerMask _levelLayerMask; //What layers the character uses as ground. PLAYER MUST BE AT THE DIFFERENT LAYER
 
     private const float _fallTimeout = 0.15f; //Time required to pass before entering the fall state. Useful for walking down stairs
     private readonly float _maxVerticalVelocity = 50.0f;
     private float _fallTimeoutDelta;
-    private readonly float _groundedOffset = -0.1f; //Useful for rough ground
-    private readonly float _groundedRadius = 0.5f; //The radius of the grounded check. Should match the radius of the CharacterController
+    private readonly float _groundedOffset = -0.1f; //Useful for rough ground -0.1
+    private readonly float _groundedRadius = 0.5f; //The radius of the grounded check. Should match the radius of the CharacterController 0.5
     private float _verticalVelocity;
     private Vector3 _moveVelocity;
     #endregion
@@ -42,11 +46,13 @@ public class PlayerMovement : MonoBehaviour
     #region References
     [HideInInspector] public Player Player;
     private CharacterController _controller;
+    private CapsuleCollider _collider;
     #endregion
 
     private void OnEnable()
     {
         _controller = GetComponent<CharacterController>();
+        _collider = GetComponent<CapsuleCollider>();
         _controller.enabled = true;
     }
 
@@ -61,7 +67,15 @@ public class PlayerMovement : MonoBehaviour
     {
         CheckGround();
         Move();
+        ChangeColliders();
     }
+
+    public void ChangeColliders()
+    {
+        //Debug.Log(Player.Appearance.Characters[Player.Network.Skin.Value].GetComponent<SkinnedMeshRenderer>().bounds.max.y);
+        _controller.height = _collider.height = Player.Appearance.Characters[Player.Network.Skin.Value].GetComponent<SkinnedMeshRenderer>().bounds.max.y;
+        _collider.center = _controller.center = new Vector3(0, _controller.height/2, 0);
+     }
 
     private void Move()
     {
@@ -82,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
         float ChooseSpeed()
         {
             if (MoveDirection == Vector2.zero) return 0f;
+            if (Crouch) return 3f;
             if (Sprint && (_targetSpeed == _sprintSpeed))
             {
                 if (MoveDirection.y < 0 || _stamina < _staminaDecBreakpoint) return _walkSpeed;
@@ -119,10 +134,11 @@ public class PlayerMovement : MonoBehaviour
     {
         // set sphere position, with offset
         Vector3 spherePosition = new(transform.position.x, transform.position.y - _groundedOffset, transform.position.z);
-        _grounded = Physics.CheckSphere(spherePosition, _groundedRadius, _levelLayerMask, QueryTriggerInteraction.Ignore);
+        Grounded = Physics.CheckSphere(spherePosition, _groundedRadius, _levelLayerMask, QueryTriggerInteraction.Ignore);
 
-        if (_grounded)
+        if (Grounded)
         {
+            
             // reset the fall timeout timer
             _fallTimeoutDelta = _fallTimeout;
 

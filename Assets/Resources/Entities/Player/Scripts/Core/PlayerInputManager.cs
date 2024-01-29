@@ -3,6 +3,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
+using SteamAudio;
 
 public class PlayerInputManager : MonoBehaviour
 {
@@ -29,10 +30,17 @@ public class PlayerInputManager : MonoBehaviour
     public void OnLook(InputAction.CallbackContext context) =>
         Player.Camera.LookDelta = context.ReadValue<Vector2>();
 
-    public void OnSprint(InputAction.CallbackContext context) =>
-        Player.Movement.Sprint = context.action.IsPressed();
+    public void OnSprint(InputAction.CallbackContext context)
+    {
+        if (!Player.Movement.Crouch) Player.Movement.Sprint = context.action.IsPressed();
+        else Player.Movement.Sprint = false;
+    }
+   
 
-    public void OnPickUp(InputAction.CallbackContext context)
+    public void OnCrouch(InputAction.CallbackContext context)
+    { if (context.performed) Player.Movement.Crouch = !Player.Movement.Crouch; }
+
+public void OnPickUp(InputAction.CallbackContext context)
     { if (context.performed) Player.Interaction.PickUp(); }
 
     public void OnFlashlight(InputAction.CallbackContext context)
