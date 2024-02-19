@@ -1,4 +1,8 @@
-public class EnemyFootsteps : CharacterFootsteps
+using UnityEngine;
+
+public class EnemyFootsteps : Footsteps
 {
-    public override void TakeStep() => StartCoroutine(PlayFootstepSound(1));
+    private void OnTriggerEnter(Collider other) => TakeStep(other.transform);
+
+    public override void TakeStep(Transform floor) => StartCoroutine(PlayFootstepSound(1, floor));
 }

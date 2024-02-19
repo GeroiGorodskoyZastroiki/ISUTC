@@ -80,7 +80,7 @@ public class SteamworksManager : MonoBehaviour
 
     public void ClientDisconnected(ulong id)
     {
-        if (NetworkManager.Singleton.IsHost) LeaveLobby();
+        //if (NetworkManager.Singleton.IsHost) LeaveLobby();
     }
 
     public void LeaveLobby()
@@ -88,7 +88,7 @@ public class SteamworksManager : MonoBehaviour
         Lobby.Leave();
         if (NetworkManager.Singleton) NetworkManager.Singleton.Shutdown();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        //UIManager.Open(UIManager.mainMenu);
+        UIManager.Open(UIManager.MainMenu);
         GameManager.Instance.GameStarted = false;
     }
     #endregion

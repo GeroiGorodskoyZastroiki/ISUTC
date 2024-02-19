@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class PlayerFootsteps : CharacterFootsteps
+public class PlayerFootsteps : Footsteps
 {
-    public override void TakeStep()
+    private void OnTriggerEnter(Collider other) => TakeStep(other.transform);
+
+    public override void TakeStep(Transform floor)
     {
-        var animator = GetComponentInParent<Animator>();
-        float volumeFactor = 0.7f;
+        float volumeFactor = 0.5f;
         if (GetComponentInParent<Player>().Movement.Sprint) volumeFactor = 1;
-        if (GetComponentInParent<Player>().Movement.Crouch) volumeFactor = 0.5f;
-        if (Mathf.Abs(animator.GetFloat("VelocityX")) > 0.19 || Mathf.Abs(animator.GetFloat("VelocityZ")) > 0.19)
-            StartCoroutine(PlayFootstepSound(volumeFactor));
+        if (GetComponentInParent<Player>().Movement.Crouch) volumeFactor = 0.25f;
+        StartCoroutine(PlayFootstepSound(volumeFactor, floor));
     }
 }

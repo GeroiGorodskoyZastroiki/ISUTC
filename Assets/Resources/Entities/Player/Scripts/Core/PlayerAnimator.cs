@@ -16,11 +16,7 @@ public class PlayerAnimator : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public void Footstep() =>
-        GetComponentInChildren<PlayerFootsteps>().TakeStep();
-
-    private void FixedUpdate() =>
-        Animate();
+    private void FixedUpdate() => Animate();
 
     private void Animate()
     {

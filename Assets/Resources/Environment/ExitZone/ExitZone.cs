@@ -13,7 +13,7 @@ public class ExitZone : MonoBehaviour
     private void OnTriggerStay(Collider collider)
     {
         if (!NetworkManager.Singleton.IsHost) return;
-        collider.TryGetComponent<PlayerTag>(out var player);
+        collider.TryGetComponent<Player>(out var player);
         if (player)
         {
             int itemsCount = FindObjectsByType<Item>(FindObjectsSortMode.None).Length;

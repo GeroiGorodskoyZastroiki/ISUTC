@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using Unity.Netcode;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
+using Sirenix.OdinInspector;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject Enemy;
     [HideInInspector] public GameObject Owner;
-    [HideInInspector] public List<GameObject> Players = new(); //по€вл€ютс€ после старта игры
+    [ReadOnly] public List<GameObject> Players = new(); //по€вл€ютс€ после старта игры
     public int ItemsCount;
     public GameObject[] Items;
     [HideInInspector] public bool GameStarted;

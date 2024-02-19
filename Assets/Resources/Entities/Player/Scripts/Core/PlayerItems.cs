@@ -11,7 +11,7 @@ public class PlayerItems : MonoBehaviour
     [HideInInspector] public Player Player;
     #endregion
 
-    private void Start()
+    private void OnEnable()
     {
         Flashlight = Instantiate(FlashlightPrefab, transform).transform;
     }
