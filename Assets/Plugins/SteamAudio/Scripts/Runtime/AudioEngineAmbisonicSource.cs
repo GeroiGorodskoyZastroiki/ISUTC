@@ -25,10 +25,10 @@ namespace SteamAudio
         {
             switch (type)
             {
-            case AudioEngineType.Unity:
-                return new UnityAudioEngineAmbisonicSource();
-            default:
-                return null;
+                case AudioEngineType.Unity:
+                    return new UnityAudioEngineAmbisonicSource();
+                default:
+                    return null;
             }
         }
     }

@@ -53,8 +53,8 @@ namespace SteamAudio
         }
 
         public int GetNumProbes()
-        { 
-            return (mProbeSpheres == null) ? 0 : mProbeSpheres.Length; 
+        {
+            return (mProbeSpheres == null) ? 0 : mProbeSpheres.Length;
         }
 
         public int GetNumLayers()
@@ -287,17 +287,17 @@ namespace SteamAudio
             {
                 switch (layerInfo.identifier.variation)
                 {
-                case BakedDataVariation.Reverb:
-                    layerInfo.gameObject.GetComponent<SteamAudioListener>().UpdateBakedDataStatistics();
-                    break;
+                    case BakedDataVariation.Reverb:
+                        layerInfo.gameObject.GetComponent<SteamAudioListener>().UpdateBakedDataStatistics();
+                        break;
 
-                case BakedDataVariation.StaticSource:
-                    layerInfo.gameObject.GetComponent<SteamAudioBakedSource>().UpdateBakedDataStatistics();
-                    break;
+                    case BakedDataVariation.StaticSource:
+                        layerInfo.gameObject.GetComponent<SteamAudioBakedSource>().UpdateBakedDataStatistics();
+                        break;
 
-                case BakedDataVariation.StaticListener:
-                    layerInfo.gameObject.GetComponent<SteamAudioBakedListener>().UpdateBakedDataStatistics();
-                    break;
+                    case BakedDataVariation.StaticListener:
+                        layerInfo.gameObject.GetComponent<SteamAudioBakedListener>().UpdateBakedDataStatistics();
+                        break;
                 }
             }
         }

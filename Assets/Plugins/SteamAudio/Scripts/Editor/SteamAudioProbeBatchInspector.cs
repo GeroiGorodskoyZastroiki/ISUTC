@@ -40,7 +40,7 @@ namespace SteamAudio
             EditorGUILayout.PropertyField(mAsset);
 
             EditorGUILayout.PropertyField(mPlacementStrategy);
-            if ((ProbeGenerationType) mPlacementStrategy.enumValueIndex == ProbeGenerationType.UniformFloor)
+            if ((ProbeGenerationType)mPlacementStrategy.enumValueIndex == ProbeGenerationType.UniformFloor)
             {
                 EditorGUILayout.PropertyField(mHorizontalSpacing);
                 EditorGUILayout.PropertyField(mHeightAboveFloor);

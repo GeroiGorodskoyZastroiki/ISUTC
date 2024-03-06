@@ -132,7 +132,7 @@ namespace SteamAudio
                         sSingleton.name = "Steam Audio Settings";
 
 #if UNITY_EDITOR
-                        sSingleton.defaultMaterial = (SteamAudioMaterial) AssetDatabase.LoadAssetAtPath("Assets/Plugins/SteamAudio/Resources/Materials/Default.asset", typeof(SteamAudioMaterial));
+                        sSingleton.defaultMaterial = (SteamAudioMaterial)AssetDatabase.LoadAssetAtPath("Assets/Plugins/SteamAudio/Resources/Materials/Default.asset", typeof(SteamAudioMaterial));
 
                         AssetDatabase.CreateAsset(sSingleton, "Assets/Plugins/SteamAudio/Resources/SteamAudioSettings.asset");
 #endif

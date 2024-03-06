@@ -2,18 +2,20 @@ using UnityEngine;
 
 public class PauseMenuUI : MonoBehaviour
 {
-    public bool pause;
+    public bool Pause;
 
-    void OnEnable() => SwitchPause(true);
+    private void OnEnable() => SwitchPause(true);
 
-    void OnDisable() => SwitchPause(false);
+    private void OnDisable() => SwitchPause(false);
 
-    void SwitchPause(bool True) //это чё за высер?
+    private void SwitchPause(bool True) //это чё за высер?
     {
         UIManager.HideCursor(!True);
-        pause = True;
-        var owner = GameManager.Instance.owner;
-        owner.GetComponent<Player>().enabled = !True;
+        Pause = True;
+        var owner = GameManager.Instance.Owner;
+        owner.GetComponent<PlayerMovement>().enabled = !True;
+        owner.GetComponent<PlayerCamera>().enabled = !True;
+        owner.GetComponent<PlayerAnimator>().enabled = !True;
         owner.GetComponentInChildren<AimTarget>().enabled = !True;
         owner.GetComponent<Animator>().SetFloat("VelocityX", 0);
         owner.GetComponent<Animator>().SetFloat("VelocityZ", 0);
@@ -26,7 +28,7 @@ public class PauseMenuUI : MonoBehaviour
     public void Disconnect()
     {
         SteamworksManager.Instance.LeaveLobby();
-        UIManager.Open(UIManager.mainMenu);
+        UIManager.Open(UIManager.MainMenu);
     }
 
     public void ExitGame() => UICommonMethods.ExitGame();

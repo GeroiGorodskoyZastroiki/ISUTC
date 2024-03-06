@@ -31,7 +31,7 @@ namespace InputRebinder.Runtime
         /// Reference to the button
         /// </summary>
         [SerializeField] private Button rebindButton;
-        
+
         /// <summary>
         /// Reference to the reset button
         /// </summary>
@@ -109,8 +109,8 @@ namespace InputRebinder.Runtime
         internal void InitiateRebindOperation(InputAction actionToRebind)
         {
             actionToRebind.Disable();
-            var rebindOperation = actionToRebind.PerformInteractiveRebinding(this.BindingIndex)                
-                
+            var rebindOperation = actionToRebind.PerformInteractiveRebinding(this.BindingIndex)
+
                 // BUG WORKAROUND: https://forum.unity.com/threads/rebind-bug-arrows-print-screen.807060/
                 .WithControlsExcluding("<Keyboard>/printScreen")
 
@@ -125,16 +125,16 @@ namespace InputRebinder.Runtime
                 .WithCancelingThrough("<Keyboard>/escape")
 
                 // Dispose the operation on completion.
-                .OnComplete(operation => 
+                .OnComplete(operation =>
                 {
-                    operation.Dispose(); 
+                    operation.Dispose();
                     actionToRebind.Enable();
                     ResetTextAndButtons();
                     PlayerPrefs.SetString($"{MapName}{ActionName}{BindingIndex}Bind", actionToRebind.SaveBindingOverridesAsJson());
                 })
-                .OnCancel(operation => 
+                .OnCancel(operation =>
                 {
-                    operation.Dispose(); 
+                    operation.Dispose();
                     actionToRebind.Enable();
                     ResetTextAndButtons();
                 })

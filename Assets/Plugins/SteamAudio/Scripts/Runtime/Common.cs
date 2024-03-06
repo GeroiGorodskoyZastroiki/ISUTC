@@ -61,7 +61,7 @@ namespace SteamAudio
         public static Matrix4x4 TransposeMatrix(Matrix4x4 inMatrix)
         {
             var outMatrix = new Matrix4x4();
-            
+
             outMatrix.m00 = inMatrix.m00;
             outMatrix.m01 = inMatrix.m10;
             outMatrix.m02 = inMatrix.m20;

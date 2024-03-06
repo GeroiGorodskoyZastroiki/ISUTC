@@ -3,23 +3,23 @@
 public class GizmoCube : GizmoDrawer
 {
     [Header("Size")]
-    public Vector3 size = new Vector3(1f, 1f, 1f);
+    public Vector3 Size = new(1f, 1f, 1f);
 
-    void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
-        if (alwaysVisible)
+        if (AlwaysVisible)
         {
-            Gizmos.color = color;
-            Gizmos.DrawCube(transform.position + offset, new Vector3(size.x, size.y, size.z));
+            Gizmos.color = Color;
+            Gizmos.DrawCube(transform.position + Offset, new Vector3(Size.x, Size.y, Size.z));
         }
     }
 
-    void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
-        if (!alwaysVisible)
+        if (!AlwaysVisible)
         {
-            Gizmos.color = color;
-            Gizmos.DrawCube(transform.position + offset, new Vector3(size.x, size.y, size.z));
+            Gizmos.color = Color;
+            Gizmos.DrawCube(transform.position + Offset, new Vector3(Size.x, Size.y, Size.z));
         }
     }
 }

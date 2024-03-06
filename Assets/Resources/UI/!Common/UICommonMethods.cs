@@ -12,6 +12,6 @@ public static class UICommonMethods
 
     public static void Settings()
     {
-        UIManager.Open(UIManager.settings);
+        UIManager.Open(UIManager.Settings);
     }
 }

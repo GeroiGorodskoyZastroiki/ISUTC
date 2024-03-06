@@ -109,7 +109,7 @@ namespace SteamAudio
         {
             var serializedObject = new SerializedObject(mContext);
             API.iplProbeBatchSave(mProbeBatch, serializedObject.Get());
-            var size = (int) serializedObject.GetSize();
+            var size = (int)serializedObject.GetSize();
             serializedObject.WriteToFile(dataAsset, flush);
             serializedObject.Release();
             return size;

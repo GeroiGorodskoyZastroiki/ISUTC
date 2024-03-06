@@ -5,67 +5,65 @@ using UnityEngine.UI;
 
 public class LobbyUI : MonoBehaviour
 {
-    [SerializeField] Button startGameButton;
-    [SerializeField] Toggle joinableToogle;
+    [SerializeField] private Button _startGameButton;
+    [SerializeField] private Toggle _joinableToogle;
 
-    [SerializeField] GameObject playerInfoUIPrefab;
-    [HideInInspector] public PlayerLobbyUI ownerPLUI;
+    [SerializeField] private GameObject _playerInfoUIPrefab;
+    [HideInInspector] public PlayerLobbyUI OwnerPLUI;
 
-    void OnEnable()
+    private void OnEnable()
     {
         if (NetworkManager.Singleton.IsHost)
         {
-            startGameButton.gameObject.SetActive(true);
-            joinableToogle.gameObject.SetActive(true);
+            _startGameButton.gameObject.SetActive(true);
+            _joinableToogle.gameObject.SetActive(true);
         }
         else
         {
-            startGameButton.gameObject.SetActive(false);
-            joinableToogle.gameObject.SetActive(false);
+            _startGameButton.gameObject.SetActive(false);
+            _joinableToogle.gameObject.SetActive(false);
         }
     }
 
-    void Update()
+    private void Update()
     {
-        if (gameObject.activeSelf == true && NetworkManager.Singleton.IsHost) UpdateStartGameButton();
+        if (gameObject.activeSelf && NetworkManager.Singleton.IsHost) UpdateStartGameButton();
     }
 
     public void StartGame()
     {
         if (!NetworkManager.Singleton.IsHost) return;
-        if (FindObjectsByType<Player>(FindObjectsSortMode.None).Where(x => x.ready.Value == false).Count() > 0) return;
+        if (FindObjectsByType<PlayerNetwork>(FindObjectsSortMode.None).Count(x => x.IsReady.Value == false) > 0) return;
         SteamworksManager.Instance.StartGame();
     }
 
-    void UpdateStartGameButton()
+    private void UpdateStartGameButton()
     {
-        if (FindObjectsByType<Player>(FindObjectsSortMode.None).Where(x => x.ready.Value == false).Count() > 0)
-            startGameButton.interactable = false;
-        else startGameButton.interactable = true;
+        _startGameButton.interactable = FindObjectsByType<PlayerNetwork>(FindObjectsSortMode.None).Count(x => x.IsReady.Value == false) <= 0;
     }
 
     public void SetReady()
     {
-        var PLUI = FindObjectsByType<PlayerLobbyUI>(FindObjectsSortMode.None).SingleOrDefault(x => x.player == GameManager.Instance.owner);
+        var PLUI = FindObjectsByType<PlayerLobbyUI>(FindObjectsSortMode.None).SingleOrDefault(x => x.PlayerNetwork.gameObject == GameManager.Instance.Owner);
         if (PLUI) PLUI.SetReady();
     }
 
     public void SetJoinable() =>
-        SteamworksManager.Instance.lobby.SetJoinable(joinableToogle.isOn);
+        SteamworksManager.Instance.Lobby.SetJoinable(_joinableToogle.isOn);
 
     public void LeaveLobby()
     {
         SteamworksManager.Instance.LeaveLobby();
-        UIManager.Open(UIManager.mainMenu);
+        UIManager.Open(UIManager.MainMenu);
     }
 
     public void CreatePlayerInfo(GameObject player)
     {
-        Vector3 PLUIpos = Vector3.Lerp(player.transform.position, Camera.main.transform.position, 0.1f);
+        Vector3 PLUIpos = Vector3.Lerp(player.transform.position, Camera.main!.transform.position, 0.1f);
         PLUIpos.y = 0;
-        GameObject PLUIObject = Instantiate(playerInfoUIPrefab, PLUIpos, player.transform.rotation);
+        GameObject PLUIObject = Instantiate(_playerInfoUIPrefab, PLUIpos, player.transform.rotation);
         Billboard.RotateObjectTowards(PLUIObject.transform, Camera.main.transform);
         PLUIObject.GetComponent<PlayerLobbyUI>().SetPlayerInfo(player);
-        if (player.GetComponent<NetworkObject>().IsOwner) ownerPLUI = PLUIObject.GetComponent<PlayerLobbyUI>();
+        if (player.GetComponent<NetworkObject>().IsOwner) OwnerPLUI = PLUIObject.GetComponent<PlayerLobbyUI>();
     }
 }

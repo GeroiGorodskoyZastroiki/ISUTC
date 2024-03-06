@@ -5,7 +5,6 @@
 
 using System;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace SteamAudio
@@ -55,23 +54,23 @@ namespace SteamAudio
             {
                 var ptrValue = ptr.ToInt64();
 
-                mSimulationOutputs[0] = (byte) (ptrValue >> 0);
-                mSimulationOutputs[1] = (byte) (ptrValue >> 8);
-                mSimulationOutputs[2] = (byte) (ptrValue >> 16);
-                mSimulationOutputs[3] = (byte) (ptrValue >> 24);
-                mSimulationOutputs[4] = (byte) (ptrValue >> 32);
-                mSimulationOutputs[5] = (byte) (ptrValue >> 40);
-                mSimulationOutputs[6] = (byte) (ptrValue >> 48);
-                mSimulationOutputs[7] = (byte) (ptrValue >> 56);
+                mSimulationOutputs[0] = (byte)(ptrValue >> 0);
+                mSimulationOutputs[1] = (byte)(ptrValue >> 8);
+                mSimulationOutputs[2] = (byte)(ptrValue >> 16);
+                mSimulationOutputs[3] = (byte)(ptrValue >> 24);
+                mSimulationOutputs[4] = (byte)(ptrValue >> 32);
+                mSimulationOutputs[5] = (byte)(ptrValue >> 40);
+                mSimulationOutputs[6] = (byte)(ptrValue >> 48);
+                mSimulationOutputs[7] = (byte)(ptrValue >> 56);
             }
             else
             {
                 var ptrValue = ptr.ToInt32();
 
-                mSimulationOutputs[0] = (byte) (ptrValue >> 0);
-                mSimulationOutputs[1] = (byte) (ptrValue >> 8);
-                mSimulationOutputs[2] = (byte) (ptrValue >> 16);
-                mSimulationOutputs[3] = (byte) (ptrValue >> 24);
+                mSimulationOutputs[0] = (byte)(ptrValue >> 0);
+                mSimulationOutputs[1] = (byte)(ptrValue >> 8);
+                mSimulationOutputs[2] = (byte)(ptrValue >> 16);
+                mSimulationOutputs[3] = (byte)(ptrValue >> 24);
             }
 
             var index = kSimulationOutputsParamIndex;

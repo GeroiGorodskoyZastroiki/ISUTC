@@ -1,0 +1,14 @@
+name: Return Unity License
+
+on:
+ workflow_dispatch:
+
+jobs:
+ return-license:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Return Unity License
+        uses: game-ci/unity-return-license@v2

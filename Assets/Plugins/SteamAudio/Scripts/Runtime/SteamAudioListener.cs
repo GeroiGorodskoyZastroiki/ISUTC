@@ -3,7 +3,6 @@
 // https://valvesoftware.github.io/steam-audio/license.html
 //
 
-using System;
 using UnityEngine;
 
 namespace SteamAudio
@@ -157,7 +156,7 @@ namespace SteamAudio
         }
 
         public void UpdateOutputs(SimulationFlags flags)
-        {}
+        { }
 
         private void OnDrawGizmosSelected()
         {
