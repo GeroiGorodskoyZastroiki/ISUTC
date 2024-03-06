@@ -138,7 +138,7 @@ public class SteamworksManager : MonoBehaviour
         if (NetworkManager.Singleton.IsHost)
         {
             GameManager.Instance.SpawnItems();
-            GameManager.Instance.SpawnEnemy();
+            //GameManager.Instance.SpawnEnemy();
         }
         GameManager.Instance.GameStarted = true;
         lobby.SetJoinable(false);

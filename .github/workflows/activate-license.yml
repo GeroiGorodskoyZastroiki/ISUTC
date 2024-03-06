@@ -1,9 +1,11 @@
-name: Aboba
+name: Acquire Activation File
+
 on:
   workflow_dispatch: {}
+  
 jobs:
   activation:
-    name: Abob
+    name: Request Manual Activation File
     runs-on: ubuntu-latest
     steps:
       # Request manual activation file
