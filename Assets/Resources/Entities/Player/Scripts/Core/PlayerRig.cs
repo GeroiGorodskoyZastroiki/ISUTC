@@ -1,17 +1,14 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
 public class PlayerRig : MonoBehaviour
 {
     #region Data
-    [SerializeField] private Transform _camera;
-    [SerializeField] private Transform _cameraPoint;
-    [SerializeField] private Transform _flashlight;
-    [SerializeField] private Transform _flashlightPoint;
-    [SerializeField] private Transform _voiceChat;
-    [SerializeField] private Transform _mouth;
-    [SerializeField] private Transform _mouthPoint;
-    [SerializeField] private MultiRotationConstraint _leftArmConstraint;
+    [SerializeField] private Rig _leftArmRig;
+    [SerializeField] private Rig _runningRig;
+    [SerializeField] private Rig _crouchingRig;
+    [SerializeField] private Rig _crouchingAimRig;
     #endregion
 
     #region References
@@ -21,28 +18,37 @@ public class PlayerRig : MonoBehaviour
 
     private void Start()
     {
-        _animator = GetComponentInParent<Animator>();
-        _flashlight = Player.Items.Flashlight;
+        _animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        UpdateBindedObjects();
-        ConstrainLeftArm();
+        LeftArm();
+        Running();
+        Crouching();
     }
 
-    void UpdateBindedObjects()
+    void LeftArm()
     {
-        _camera.position = _cameraPoint.position;
-        _flashlight.SetPositionAndRotation(_flashlightPoint.position, _flashlightPoint.rotation);
-        _mouth.SetPositionAndRotation(_mouthPoint.position, _mouthPoint.rotation);
-        _voiceChat.SetPositionAndRotation(_mouthPoint.position, _mouthPoint.rotation);
+        var clipInfos = _animator.GetCurrentAnimatorClipInfo(0);
+        float idleWeight = clipInfos.SingleOrDefault(x => x.clip.name == "Idle").weight;
+        float crouchWeight = clipInfos.Where(x => x.clip.name.Contains("Crouching")).Select(x => x.weight).DefaultIfEmpty(0).Max() / 1.75f;
+        _leftArmRig.weight = Mathf.Lerp(_leftArmRig.weight, Mathf.Max(idleWeight, crouchWeight), 0.1f);
     }
 
-    void ConstrainLeftArm()
+    void Running()
     {
-        if ((-0.1 < _animator.GetFloat("VelocityX") && _animator.GetFloat("VelocityX") <= 1) && (-0.1 < _animator.GetFloat("VelocityZ") && _animator.GetFloat("VelocityZ") <= 1))
-            _leftArmConstraint.weight = Mathf.Clamp(Mathf.Lerp(_leftArmConstraint.weight, 1, 0.1f), 0, 1);
-        else _leftArmConstraint.weight = Mathf.Clamp(Mathf.Lerp(_leftArmConstraint.weight, 0, 0.1f), 0, 1);
+        var clipInfos = _animator.GetCurrentAnimatorClipInfo(0);
+        float runningLeftWeight = clipInfos.SingleOrDefault(x => x.clip.name == "RunningLeft").weight;
+        float runningRightWeight = clipInfos.SingleOrDefault(x => x.clip.name == "RunningRight").weight;
+        _runningRig.weight = Mathf.Max(runningLeftWeight, runningRightWeight);
+    }
+
+    void Crouching()
+    {
+        float crouchingWeight = _animator.GetCurrentAnimatorClipInfo(0).Where(x => x.clip.name.Contains("Crouching")).Select(x => x.weight).DefaultIfEmpty(0).Max();
+        _crouchingRig.weight = Mathf.Clamp(crouchingWeight, 0, 0.75f);
+        if (crouchingWeight < 0.5f) return;
+        _crouchingAimRig.weight = Mathf.Lerp(_crouchingAimRig.weight, Mathf.Clamp01(Player.Camera.CameraPitch * -0.04f), 0.1f);
     }
 }

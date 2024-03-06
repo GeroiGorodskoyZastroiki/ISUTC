@@ -12,7 +12,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private bool _cameraBob = true;
 
     private const float _cameraRotationThreshold = 0.01f;
-    private float _cameraPitch;
+    public float CameraPitch {  get; private set; }
 
     [FormerlySerializedAs("_lookDelta")] public Vector2 LookDelta;
     private float _rotationVelocity;
@@ -43,16 +43,17 @@ public class PlayerCamera : MonoBehaviour
         if (LookDelta.sqrMagnitude >= _cameraRotationThreshold)
         {
             _rotationVelocity = LookDelta.x * _rotationSpeed * Player.Input.MouseSensitivity;
-            _cameraPitch += LookDelta.y * _rotationSpeed * Player.Input.MouseSensitivity;
+            CameraPitch += LookDelta.y * _rotationSpeed * Player.Input.MouseSensitivity;
 
             // clamp our pitch rotation
-            _cameraPitch = Mathf.Clamp(_cameraPitch, _bottomClamp, _topClamp);
+            CameraPitch = Mathf.Clamp(CameraPitch, _bottomClamp, _topClamp);
 
             // Update camera pitch
-            Cam.localRotation = Quaternion.Euler(_cameraPitch, 0.0f, 0.0f);
+            Cam.localRotation = Quaternion.Euler(CameraPitch, 0.0f, 0.0f);
 
             // rotate the player left and right
             transform.Rotate(Vector3.up * _rotationVelocity);
         }
+        //Debug.Log(CameraPitch);
     }
 }

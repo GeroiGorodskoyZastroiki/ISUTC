@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     public PlayerNetwork Network { get; private set; }
     public PlayerHUD HUD { get; private set; }
     public PlayerRig Rig { get; private set; }
-    public PlayerItems Items { get; private set; }
+    //public PlayerItems Items { get; private set; }
     #endregion
 
     private void OnEnable()
@@ -25,18 +25,18 @@ public class Player : MonoBehaviour
         Rig = GetComponent<PlayerRig>();
         Movement = GetComponent<PlayerMovement>();
         Network = GetComponent<PlayerNetwork>();
-        Items = GetComponent<PlayerItems>();
         GetComponentInChildren<PlayerHUD>(true).gameObject.SetActive(true);
         HUD = GetComponentInChildren<PlayerHUD>();
+        //Items = GetComponent<PlayerItems>();
 
-        Animator.Player = Appearance.Player = Camera.Player = Input.Player = HUD.Player = Items.Player = 
+        Animator.Player = Appearance.Player = Camera.Player = Input.Player = HUD.Player = //Items.Player =
         Movement.Player = Interaction.Player = Movement.Player = Network.Player = Rig.Player = this;
     }
 
     public void EnableComponents()
     {
         Animator.enabled = Rig.enabled = Appearance.enabled = Camera.enabled = Input.enabled = HUD.enabled =
-        Movement.enabled = Interaction.enabled = Movement.enabled = Network.enabled = Items.enabled = true;
+        Movement.enabled = Interaction.enabled = Movement.enabled = Network.enabled = true;
         GetComponentInChildren<AimPoint>().enabled = true;
     }
 }

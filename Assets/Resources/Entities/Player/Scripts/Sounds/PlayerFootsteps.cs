@@ -6,6 +6,7 @@ public class PlayerFootsteps : Footsteps
 
     public override void TakeStep(Transform floor)
     {
+        Debug.Log("step");
         float volumeFactor = 0.5f;
         if (GetComponentInParent<Player>().Movement.Sprint) volumeFactor = 1;
         if (GetComponentInParent<Player>().Movement.Crouch) volumeFactor = 0.25f;

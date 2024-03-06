@@ -29,7 +29,7 @@ public class PlayerNetwork : NetworkBehaviour
 
     public override void OnNetworkDespawn()
     {
-        Debug.Log("OnNetworkDespawnPre");
+        //Debug.Log("OnNetworkDespawnPre");
         GameManager.Instance.Players.Remove(gameObject);
 
         if (!GameManager.Instance.GameStarted)
@@ -38,9 +38,9 @@ public class PlayerNetwork : NetworkBehaviour
             if (PLUI) Destroy(PLUI.gameObject);
         }
         else if (NetworkObject.IsOwner) GameManager.Instance.MakePlayerSpectator();
-        Debug.Log("OnNetworkDespawnAfter");
+        //Debug.Log("OnNetworkDespawnAfter");
         base.OnNetworkDespawn();
-        Debug.Log("OnNetworkDespawnAfterBase");
+        //Debug.Log("OnNetworkDespawnAfterBase");
     }
 
     private IEnumerator Spawn()

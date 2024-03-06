@@ -22,15 +22,15 @@ public class EnemyVision : MonoBehaviour
 
         if (player)
         {
-            Debug.Log("player");
+            //Debug.Log("player");
             Debug.DrawRay(transform.root.position + new Vector3(0f, 1.15f, 0f), ((player.gameObject.transform.position) - transform.root.position).normalized, Color.red);
             Physics.SphereCast(transform.root.position + new Vector3(0f, 1.15f, 0f), 0.2f, ((player.gameObject.transform.position) - transform.root.position).normalized, out var hit, _losRange, _layerMask);
             if (hit.transform)
             {
-                Debug.Log(hit.transform.gameObject.name);
+                //Debug.Log(hit.transform.gameObject.name);
                 if (hit.transform.gameObject == player.gameObject)
                 {
-                    Debug.Log("targetfound");
+                    //Debug.Log("targetfound");
                     _enemy.TargetFound(_type, player.gameObject);
                     return;
                 }

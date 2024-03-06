@@ -8,15 +8,25 @@ using Sirenix.OdinInspector;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
-
+    #region Data
     public GameObject Enemy;
     [HideInInspector] public GameObject Owner;
     [ReadOnly] public List<GameObject> Players = new(); //по€вл€ютс€ после старта игры
-    public int ItemsCount;
-    public GameObject[] Items;
+
+    public int ItemsCount { get; private set; }
+    private GameObject[] _itemPrefabs;
+
     [HideInInspector] public bool GameStarted;
+    #endregion
+
+    #region References
+    public static GameManager Instance { get; private set; }
     public InputActionAsset InputActionAsset;
+    #endregion
+
+    #region Debug
+    [Title("Debug")][SerializeField] private bool _doesntSpawnEnemy = false;
+    #endregion
 
     private void Awake()
     {
@@ -60,6 +70,7 @@ public class GameManager : MonoBehaviour
 
     public void SpawnEnemy()
     {
+        if (_doesntSpawnEnemy) return;
         List<GameObject> enemySpawnPoints = GameObject.FindGameObjectsWithTag("EnemySpawnPoint").ToList();
         GameObject randomSpawnPoint = enemySpawnPoints[Random.Range(0, enemySpawnPoints.Count)];
         GameObject enemy = Instantiate(Enemy, randomSpawnPoint.transform.position, randomSpawnPoint.transform.rotation);
@@ -73,7 +84,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < ItemsCount; i++)
         {
             GameObject selectedSpawnPoint = itemSpawnPoints[Random.Range(0, itemSpawnPoints.Count)];
-            GameObject item = Instantiate(Items[Random.Range(0, Items.Length)], selectedSpawnPoint.transform.position + new Vector3(0, 0.016f, 0), selectedSpawnPoint.transform.rotation);
+            GameObject item = Instantiate(_itemPrefabs[Random.Range(0, _itemPrefabs.Length)], selectedSpawnPoint.transform.position + new Vector3(0, 0.016f, 0), selectedSpawnPoint.transform.rotation);
             item.GetComponent<NetworkObject>().Spawn(true);
             itemSpawnPoints.Remove(selectedSpawnPoint);
         }
@@ -91,7 +102,7 @@ public class GameManager : MonoBehaviour
 
     public void MakePlayerSpectator()
     {
-        Debug.Log(Players.Count);
+        //Debug.Log(Players.Count);
         if (Players.Count == 0) return;
         Players[0].GetComponentInChildren<Camera>(true).gameObject.SetActive(true);
         UIManager.Open(UIManager.Spectator);
