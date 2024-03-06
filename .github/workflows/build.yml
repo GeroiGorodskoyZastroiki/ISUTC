@@ -25,7 +25,7 @@ jobs:
             Library-
 
       - name: Build Game
-        uses: game-ci/unity-builder@v4.1.4
+        uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.EMAIL }}
