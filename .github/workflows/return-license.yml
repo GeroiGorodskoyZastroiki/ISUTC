@@ -4,7 +4,8 @@ on:
   workflow_dispatch: {}
     
 jobs:
- return-license:
+  return-license:
+    name: Return Unity License
     runs-on: ubuntu-latest
     steps:
       - name: Return Unity License
