@@ -3,7 +3,6 @@
 // https://valvesoftware.github.io/steam-audio/license.html
 //
 
-using System;
 using UnityEngine;
 
 namespace SteamAudio

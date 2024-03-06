@@ -480,7 +480,7 @@ namespace SteamAudio
         [MonoPInvokeCallback(typeof(DistanceAttenuationCallback))]
         public static float EvaluateDistanceCurve(float distance, IntPtr userData)
         {
-            var target = (SteamAudioSource) GCHandle.FromIntPtr(userData).Target;
+            var target = (SteamAudioSource)GCHandle.FromIntPtr(userData).Target;
 
             var rMin = target.mAttenuationData.minDistance;
             var rMax = target.mAttenuationData.maxDistance;
@@ -494,7 +494,7 @@ namespace SteamAudio
                         return 0.0f;
                     else
                         return rMin / distance;
-                
+
                 case AudioRolloffMode.Linear:
                     if (distance < rMin)
                         return 1.0f;

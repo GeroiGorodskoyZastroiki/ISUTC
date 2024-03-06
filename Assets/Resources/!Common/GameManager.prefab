@@ -44,12 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b4368afd00981f45915e6b450cdee23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 5043626512436379728, guid: 59ae0f9a60bcabd42baa60f938870f8f, type: 3}
-  owner: {fileID: 0}
-  players: []
-  itemsCount: 1
-  items:
+  Enemy: {fileID: 5043626512436379728, guid: 59ae0f9a60bcabd42baa60f938870f8f, type: 3}
+  Owner: {fileID: 0}
+  Players: []
+  ItemsCount: 3
+  Items:
   - {fileID: 405209698061735053, guid: 6bc2417f04691834182865d31a68697c, type: 3}
-  gameStarted: 0
-  inputActionAsset: {fileID: -944628639613478452, guid: 430572f2721bd444ea09b1af5ce57751,
+  GameStarted: 0
+  InputActionAsset: {fileID: -944628639613478452, guid: 430572f2721bd444ea09b1af5ce57751,
     type: 3}

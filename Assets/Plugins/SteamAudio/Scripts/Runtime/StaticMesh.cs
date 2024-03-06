@@ -52,7 +52,7 @@ namespace SteamAudio
             if (status != Error.Success)
             {
                 throw new Exception(string.Format("Unable to create static mesh for export ({0} vertices, {1} triangles, {2} materials): [{3}]",
-                    staticMeshSettings.numVertices.ToString(), staticMeshSettings.numTriangles.ToString(), staticMeshSettings.numMaterials.ToString(), 
+                    staticMeshSettings.numVertices.ToString(), staticMeshSettings.numTriangles.ToString(), staticMeshSettings.numMaterials.ToString(),
                     status.ToString()));
             }
 

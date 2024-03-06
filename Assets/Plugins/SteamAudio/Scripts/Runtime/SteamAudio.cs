@@ -912,10 +912,10 @@ namespace SteamAudio
         public static extern void iplSourceRemove(IntPtr source, IntPtr simulator);
 
         [DllImport("phonon")]
-        public static extern void iplSourceSetInputs(IntPtr source, SimulationFlags flags,  ref SimulationInputs inputs);
+        public static extern void iplSourceSetInputs(IntPtr source, SimulationFlags flags, ref SimulationInputs inputs);
 
         [DllImport("phonon")]
-        public static extern void iplSourceGetOutputs(IntPtr source, SimulationFlags flags,  ref SimulationOutputs outputs);
+        public static extern void iplSourceGetOutputs(IntPtr source, SimulationFlags flags, ref SimulationOutputs outputs);
 
         // UNITY PLUGIN
 
@@ -926,7 +926,7 @@ namespace SteamAudio
         public static extern void iplUnitySetPerspectiveCorrection(PerspectiveCorrection correction);
 
         [DllImport("audioplugin_phonon")]
-        public static extern void  iplUnitySetHRTF(IntPtr hrtf);
+        public static extern void iplUnitySetHRTF(IntPtr hrtf);
 
         [DllImport("audioplugin_phonon")]
         public static extern void iplUnitySetSimulationSettings(SimulationSettings simulationSettings);

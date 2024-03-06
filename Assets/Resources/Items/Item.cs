@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Item : NetworkBehaviour
 {
-    [MinValue(1.01f)][SerializeField] float _outlineThickness;
+    [MinValue(1.01f)][SerializeField] private float _outlineThickness;
 
-    void Start()
+    private void Start()
     {
         GetComponent<Renderer>().materials[1].SetFloat("_Thickness", 0);
     }
@@ -18,6 +18,6 @@ public class Item : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void ItemDespawnServerRpc(ServerRpcParams serverRpcParams = default) => this.NetworkObject.Despawn();
+    public void ItemDespawnServerRpc(ServerRpcParams serverRpcParams = default) => NetworkObject.Despawn();
 }
 

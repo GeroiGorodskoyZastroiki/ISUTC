@@ -1,8 +1,6 @@
 using Netcode.Transports.Facepunch;
 using Steamworks;
 using Steamworks.Data;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Unity.Netcode;
 using UnityEngine;
@@ -11,9 +9,11 @@ using UnityEngine.SceneManagement;
 public class SteamworksManager : MonoBehaviour
 {
     public static SteamworksManager Instance { get; private set; }
-    private FacepunchTransport transport;
 
-    public Lobby lobby;
+    public NetworkPrefabsList NetworkPrefabs;
+    private FacepunchTransport _transport;
+
+    public Lobby Lobby;
 
     private void Awake()
     {
@@ -24,8 +24,9 @@ public class SteamworksManager : MonoBehaviour
     private void Start()
     {
         SteamClient.RestartAppIfNecessary(480);
-        transport = GetComponent<FacepunchTransport>();
+        _transport = GetComponent<FacepunchTransport>();
 
+        NetworkManager.Singleton.OnClientConnectedCallback += ClientConnected;
         NetworkManager.Singleton.OnClientDisconnectCallback += ClientDisconnected;
         SteamMatchmaking.OnLobbyCreated += OnLobbyCreated;
         SteamMatchmaking.OnLobbyEntered += OnLobbyEntered;
@@ -48,35 +49,47 @@ public class SteamworksManager : MonoBehaviour
         SteamFriends.OnGameLobbyJoinRequested -= OnGameLobbyJoinRequested;
     }
 
-    void OnApplicationQuit() => LeaveLobby();
+    private void OnApplicationQuit() => LeaveLobby();
 
     #region NetworkFlow
     public async Task StartHost()
     {
-        lobby = (await SteamMatchmaking.CreateLobbyAsync(4)).Value;
+        Lobby = (await SteamMatchmaking.CreateLobbyAsync(4)).Value;
         NetworkManager.Singleton.StartHost();
     }
 
     public void StartClient(SteamId steamId)
     {
-        transport.targetSteamId = steamId.Value;
+        _transport.targetSteamId = steamId.Value;
         NetworkManager.Singleton.StartClient();
     }
 
-    public void StartGame() =>lobby.SetGameServer(lobby.Owner.Id);
+    public void StartGame() => Lobby.SetGameServer(Lobby.Owner.Id);
+
+    public void ClientConnected(ulong id)
+    {
+        Debug.Log($"ClientId: {id}");
+        if (!NetworkManager.Singleton.IsHost) return;
+
+        var lobbySpawnPoints = GameObject.FindGameObjectsWithTag("LobbySpawnPoint");
+        GameObject player = Instantiate(NetworkPrefabs.PrefabList[0].Prefab, lobbySpawnPoints[id].transform);
+        player.transform.LookAt(Camera.main!.transform);
+        player.transform.rotation = Quaternion.Euler(new Vector3(0f, player.transform.rotation.eulerAngles.y, 0f));
+        player.GetComponent<NetworkObject>().SpawnAsPlayerObject(id);
+    }
 
     public void ClientDisconnected(ulong id)
     {
-        if (id == 0) LeaveLobby();
+        //if (NetworkManager.Singleton.IsHost) LeaveLobby();
     }
 
     public void LeaveLobby()
     {
-        lobby.Leave();
+        Lobby.Leave();
         if (NetworkManager.Singleton) NetworkManager.Singleton.Shutdown();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        //UIManager.Open(UIManager.mainMenu);
-        GameManager.Instance.gameStarted = false;
+        UIManager.Open(UIManager.MainMenu);
+        GameManager.Instance.GameStarted = false;
     }
     #endregion
 
@@ -92,20 +105,20 @@ public class SteamworksManager : MonoBehaviour
 
     private void OnLobbyInvite(Friend friend, Lobby lobby)
     {
-        
+
     }
 
     private async void OnGameLobbyJoinRequested(Lobby lobby, SteamId steamId)
     {
         await lobby.Join();
-        this.lobby = lobby;
+        Lobby = lobby;
     }
 
     private void OnLobbyEntered(Lobby lobby)
     {
         if (NetworkManager.Singleton.IsHost) return;
-        StartClient(this.lobby.Owner.Id);
-        UIManager.Open(UIManager.lobby);
+        StartClient(Lobby.Owner.Id);
+        UIManager.Open(UIManager.Lobby);
     }
 
     private void OnLobbyMemberJoined(Lobby lobby, Friend friend)
@@ -120,14 +133,14 @@ public class SteamworksManager : MonoBehaviour
 
     private void OnLobbyGameCreated(Lobby lobby, uint ip, ushort port, SteamId steamId)
     {
-        UIManager.lobby.SetActive(false);
+        UIManager.Lobby.SetActive(false);
         GameManager.Instance.SpawnPlayers();
         if (NetworkManager.Singleton.IsHost)
         {
             GameManager.Instance.SpawnItems();
             //GameManager.Instance.SpawnEnemy();
         }
-        GameManager.Instance.gameStarted = true;
+        GameManager.Instance.GameStarted = true;
         lobby.SetJoinable(false);
     }
     #endregion

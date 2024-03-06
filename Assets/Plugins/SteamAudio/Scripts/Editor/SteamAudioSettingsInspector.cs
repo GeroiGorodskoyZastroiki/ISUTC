@@ -122,7 +122,7 @@ namespace SteamAudio
             SceneTypeField();
 #endif
 
-            if (((SceneType) mSceneType.enumValueIndex) == SceneType.Custom)
+            if (((SceneType)mSceneType.enumValueIndex) == SceneType.Custom)
             {
                 EditorGUILayout.PropertyField(mLayerMask);
             }
@@ -161,25 +161,25 @@ namespace SteamAudio
             ReflectionEffectTypeField();
 #endif
 
-            if (((ReflectionEffectType) mReflectionEffectType.enumValueIndex) == ReflectionEffectType.Hybrid)
+            if (((ReflectionEffectType)mReflectionEffectType.enumValueIndex) == ReflectionEffectType.Hybrid)
             {
                 EditorGUILayout.PropertyField(mHybridReverbTransitionTime);
                 EditorGUILayout.PropertyField(mHybridReverbOverlapPercent);
             }
 
-            if (((SceneType) mSceneType.enumValueIndex) == SceneType.RadeonRays ||
-                ((ReflectionEffectType) mReflectionEffectType.enumValueIndex) == ReflectionEffectType.TrueAudioNext)
+            if (((SceneType)mSceneType.enumValueIndex) == SceneType.RadeonRays ||
+                ((ReflectionEffectType)mReflectionEffectType.enumValueIndex) == ReflectionEffectType.TrueAudioNext)
             {
                 EditorGUILayout.PropertyField(mDeviceType);
                 EditorGUILayout.PropertyField(mMaxReservedCUs);
                 EditorGUILayout.PropertyField(mFractionCUsForIRUpdate);
 
-                if (((SceneType) mSceneType.enumValueIndex) == SceneType.RadeonRays)
-                { 
+                if (((SceneType)mSceneType.enumValueIndex) == SceneType.RadeonRays)
+                {
                     EditorGUILayout.PropertyField(mBakingBatchSize);
                 }
 
-                if (((ReflectionEffectType) mReflectionEffectType.enumValueIndex) == ReflectionEffectType.TrueAudioNext)
+                if (((ReflectionEffectType)mReflectionEffectType.enumValueIndex) == ReflectionEffectType.TrueAudioNext)
                 {
                     EditorGUILayout.PropertyField(mTANDuration);
                     EditorGUILayout.PropertyField(mTANAmbisonicOrder);

@@ -5,7 +5,6 @@
 
 using System;
 using UnityEngine;
-using SteamAudio;
 
 namespace SteamAudio
 {
@@ -30,12 +29,12 @@ namespace SteamAudio
         {
             switch (type)
             {
-            case AudioEngineType.Unity:
-                return new UnityAudioEngineState();
-            case AudioEngineType.FMODStudio:
-                return new FMODStudioAudioEngineState();
-            default:
-                return null;
+                case AudioEngineType.Unity:
+                    return new UnityAudioEngineState();
+                case AudioEngineType.FMODStudio:
+                    return new FMODStudioAudioEngineState();
+                default:
+                    return null;
             }
         }
     }

@@ -273,7 +273,7 @@ namespace InputRebinder.Editor
 
             string display;
 
-            if (info != null) 
+            if (info != null)
                 display = $"{info.displayName} {info.version}";
             else
                 display = "Input Rebinder (custom version)";
@@ -407,11 +407,11 @@ namespace InputRebinder.Editor
 
             // get the binding pair for presentation
             // or make a new one
-            
+
             // no pair yet
             if (relatedAction.LastPair == null)
                 relatedAction.LastPair = CreatePair(relatedAction);
-            
+
             // not enough space
             if (relatedAction.LastPair.Count >= 2)
             {
@@ -431,7 +431,7 @@ namespace InputRebinder.Editor
 
             // set the name
             //bindingInstance.CurrentBindingText.text = 
-                //InputControlPath.ToHumanReadableString(binding.effectivePath);
+            //InputControlPath.ToHumanReadableString(binding.effectivePath);
 
             // add refs to the binding
             bindingInstance.OriginalBinding = binding;

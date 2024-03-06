@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,14 +6,14 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
-    public static GameObject mainMenu;
-    public static GameObject pauseMenu;
-    public static GameObject lobby;
-    public static GameObject settings;
-    public static GameObject spectator;
-    static List<GameObject> allUI = new List<GameObject>();
+    public static GameObject MainMenu;
+    public static GameObject PauseMenu;
+    public static GameObject Lobby;
+    public static GameObject Settings;
+    public static GameObject Spectator;
+    private static readonly List<GameObject> _allUI = new();
 
-    void Awake()
+    private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
@@ -23,19 +22,19 @@ public class UIManager : MonoBehaviour
         SetRefs();
     }
 
-    void Start() =>
-        gameObject.GetComponentsInChildren<Transform>(true).Where(x => x.tag == "UIScreen").ToList().ForEach(x => allUI.Add(x.gameObject));
+    private void Start() =>
+        gameObject.GetComponentsInChildren<Transform>(true).Where(x => x.CompareTag("UIScreen")).ToList().ForEach(x => _allUI.Add(x.gameObject));
 
-    void SetRefs()
+    private void SetRefs()
     {
-        mainMenu = GetComponentInChildren<MainMenuUI>(true).gameObject;
-        pauseMenu = GetComponentInChildren<PauseMenuUI>(true).gameObject;
-        lobby = GetComponentInChildren<LobbyUI>(true).gameObject;
-        settings = GetComponentInChildren<SettingsUI>(true).gameObject;
-        spectator = GetComponentInChildren<SpectatorUI>(true).gameObject;
+        MainMenu = GetComponentInChildren<MainMenuUI>(true).gameObject;
+        PauseMenu = GetComponentInChildren<PauseMenuUI>(true).gameObject;
+        Lobby = GetComponentInChildren<LobbyUI>(true).gameObject;
+        Settings = GetComponentInChildren<SettingsUI>(true).gameObject;
+        Spectator = GetComponentInChildren<SpectatorUI>(true).gameObject;
     }
 
-    void OnApplicationFocus(bool focus)
+    private void OnApplicationFocus(bool focus)
     {
         if (focus)
         {
@@ -61,11 +60,11 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Closes all UI screens before opening new one
     /// </summary>
-    public static void Open(GameObject UIToOpen)
+    public static void Open(GameObject UItoOpen)
     {
-        allUI.ForEach(x => Close(x));
-        UIToOpen.SetActive(true);
+        _allUI.ForEach(Close);
+        UItoOpen.SetActive(true);
     }
 
-    public static void Close(GameObject UIToClose) => UIToClose.SetActive(false);
+    public static void Close(GameObject UItoClose) => UItoClose.SetActive(false);
 }

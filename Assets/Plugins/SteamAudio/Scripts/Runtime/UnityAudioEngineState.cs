@@ -49,7 +49,7 @@ namespace SteamAudio
         public override AudioSettings GetAudioSettings()
         {
             var audioSettings = new AudioSettings { };
-            
+
             audioSettings.samplingRate = UnityEngine.AudioSettings.outputSampleRate;
 
             var numBuffers = 0;

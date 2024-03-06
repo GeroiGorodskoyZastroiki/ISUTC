@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 
-public class GizmoRay : GizmoDrawer 
+public class GizmoRay : GizmoDrawer
 {
-	[Header ("Size")]
-	public float lenght = 1f;
+    [Header("Size")]
+    public float Lenght = 1f;
 
-    void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
-        if (alwaysVisible) Draw();
+        if (AlwaysVisible) Draw();
     }
 
-    void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
-        if (!alwaysVisible) Draw();
+        if (!AlwaysVisible) Draw();
     }
 
     public override void Draw()

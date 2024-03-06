@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root Type="DevExpress.CodeRush.Foundation.Naming.NamingConventionOptions">
+  <Options Language="C#">
+    <Conventions>
+      <Item Id="{d6a717d9-5062-4acc-bde8-d9f436d42df0}" />
+      <Item Id="{c002b593-5bda-4c0e-8ad4-392a4e1565de}" />
+      <Item Id="{99c5cf35-e595-4813-b6df-c5dceae185cc}">
+        <UseInCodeAnalysis>True</UseInCodeAnalysis>
+      </Item>
+      <Item Id="{fa64c3c7-eae3-4462-ac4b-682801a7c43e}" />
+      <Item Id="{fc395363-3267-4fb9-a4dc-5235a2097529}" />
+      <Item Id="{d414bf8d-22c7-41bf-8600-5b51afe06cb4}">
+        <UseInCodeAnalysis>True</UseInCodeAnalysis>
+      </Item>
+      <Item Id="{12281c6b-a553-4607-8fa3-3aec8b30bef5}" />
+      <Item Id="{4a2fc0de-e270-40cb-80df-2c4b7be7efe4}" />
+      <Item Id="{0901f838-0609-4719-bd39-8a58d009b1ab}" />
+      <Item Id="{87df4892-175b-4767-8404-678d131dce8a}">
+        <UseInCodeAnalysis>True</UseInCodeAnalysis>
+        <AdditionalRules>
+          <DeletedItem Id="{25ee9371-f5cc-4686-bf5f-fd741eea085f}" />
+        </AdditionalRules>
+      </Item>
+      <Item Id="{90ae6eb8-d87f-4f05-b5b0-8837d88d5c01}">
+        <UseInCodeAnalysis>True</UseInCodeAnalysis>
+        <MainRule>
+          <Prefix>_</Prefix>
+        </MainRule>
+        <AdditionalRules>
+          <DeletedItem Id="{8c9de035-9002-4c0b-9bb8-cdd2d7e5785f}" />
+        </AdditionalRules>
+      </Item>
+      <Item Id="{bf506fa7-7331-407a-b671-6a393f42d5d4}" />
+      <Item Id="{1FA446EA-B302-42B8-B778-D746F0578F85}" />
+      <Item Id="{bae72cf8-2262-4a0f-9684-30c65da7e097}">
+        <UseInCodeAnalysis>True</UseInCodeAnalysis>
+      </Item>
+      <Item Id="{76c0a730-6889-416f-bc6a-40210d4010ed}" />
+      <Item Id="{7342cb9c-5f7a-4f11-9eb4-2e2bcb43050f}">
+        <UseInCodeAnalysis>True</UseInCodeAnalysis>
+      </Item>
+      <Item Id="{37047a04-50a7-4302-bd08-6b462f36ea63}" />
+    </Conventions>
+  </Options>
+</Root>

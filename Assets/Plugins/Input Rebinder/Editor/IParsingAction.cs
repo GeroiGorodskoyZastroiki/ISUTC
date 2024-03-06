@@ -1,7 +1,4 @@
 ﻿using UnityEngine.InputSystem;
-using System;
-using UnityEditor;
-using System.IO;
 
 /// <summary>
 /// Contains editor code for generating the prefabs from an inputaction file

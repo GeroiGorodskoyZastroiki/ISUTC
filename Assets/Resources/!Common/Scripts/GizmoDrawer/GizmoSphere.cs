@@ -1,25 +1,25 @@
 ﻿using UnityEngine;
 
-public class GizmoSphere : GizmoDrawer 
+public class GizmoSphere : GizmoDrawer
 {
-	[Header ("Size")]
-	public float radius = 1f;
+    [Header("Size")]
+    public float Radius = 1f;
 
-    void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
-        if (alwaysVisible)
+        if (AlwaysVisible)
         {
-            Gizmos.color = color;
-            Gizmos.DrawSphere(transform.position + offset, radius);
+            Gizmos.color = Color;
+            Gizmos.DrawSphere(transform.position + Offset, Radius);
         }
     }
 
-    void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
-        if (!alwaysVisible)
+        if (!AlwaysVisible)
         {
-            Gizmos.color = color;
-            Gizmos.DrawSphere(transform.position + offset, radius);
+            Gizmos.color = Color;
+            Gizmos.DrawSphere(transform.position + Offset, Radius);
         }
     }
 }
