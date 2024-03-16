@@ -28,8 +28,8 @@ public class SettingsUI : MonoBehaviour
 
     public void SetVolume(string name)
     {
-        Slider slider = gameObject.GetComponentsInChildren<Slider>().Single(x => x.name == $"{name}Slider");
-        AudioMixer.SetFloat(name, ConvertToDB(slider.value));
+        Slider slider = gameObject.GetComponentsInChildren<Slider>().Single(x => x.name == $"{name}VolumeSlider");
+        AudioMixer.SetFloat($"{name}Volume", ConvertToDB(slider.value));
         PlayerPrefs.SetFloat(name, slider.value);
     }
 
