@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 4022114893110216766}
   - component: {fileID: 4190303538925929602}
   m_Layer: 0
-  m_Name: VolumeSlider
+  m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

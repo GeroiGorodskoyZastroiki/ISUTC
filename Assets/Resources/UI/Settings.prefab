@@ -2111,6 +2111,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2403275434441648019, guid: c1b4c5e2876b0fd4ab94486f18da2f5b,
+        type: 3}
+      propertyPath: m_text
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2738277802334776151, guid: c1b4c5e2876b0fd4ab94486f18da2f5b,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -2139,7 +2144,7 @@ PrefabInstance:
     - target: {fileID: 4022114893110216766, guid: c1b4c5e2876b0fd4ab94486f18da2f5b,
         type: 3}
       propertyPath: m_MaxValue
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4022114893110216766, guid: c1b4c5e2876b0fd4ab94486f18da2f5b,
         type: 3}
@@ -2175,6 +2180,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957067395347731512, guid: c1b4c5e2876b0fd4ab94486f18da2f5b,
+        type: 3}
+      propertyPath: m_Name
+      value: Slider
       objectReference: {fileID: 0}
     - target: {fileID: 6050233301687397285, guid: c1b4c5e2876b0fd4ab94486f18da2f5b,
         type: 3}
