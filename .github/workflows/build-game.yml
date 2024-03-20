@@ -33,7 +33,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: StandaloneWindows
-          buildName: ISUTC
+          buildName: ${{ vars.GAME_NAME }}
 
       - name: Upload Result
         uses: actions/upload-artifact@v4
@@ -54,18 +54,18 @@ jobs:
 
       - name: Clone Destination Repository
         run: |
-          git clone https://${{ secrets.GH_PAT }}@github.com/GeroiGorodskoyZastroiki/ISUTC-build.git
+          git clone https://${{ secrets.GH_PAT }}@github.com/${{ vars.GH_USER }}/${{ vars.GH_BUILD_REPO }}.git
 
       - name: Set Commit Name to Environment Variable
         run: echo "COMMIT_NAME=${{ github.event.head_commit.message }}" >> $GITHUB_ENV
       
       - name: Push Artifacts to Destination Repository
         run: |
-          cp -r ${{ github.workspace }}/build/StandaloneWindows/* ISUTC-build/
-          cd ISUTC-build
+          cd ${{ vars.GH_BUILD_REPO }}
           git config user.email "${{ secrets.EMAIL }}"
-          git config user.name "${{ secrets.GH_NAME }}"
-          git checkout -b test
+          git config user.name "${{ vars.GH_USER }}"
+          git checkout ${{ vars.GH_BUILD_BRANCH }}
+          cp -r ${{ github.workspace }}/build/StandaloneWindows/* .
           git add .
           git commit -m "${{ env.COMMIT_NAME }}"
-          git push -f origin test
+          git push -f origin ${{ vars.GH_BUILD_BRANCH }}

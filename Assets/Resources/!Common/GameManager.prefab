@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4611231119253497820}
   - component: {fileID: 110407800307294471}
+  - component: {fileID: 7417879055380768975}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -47,9 +48,24 @@ MonoBehaviour:
   Enemy: {fileID: 5043626512436379728, guid: 59ae0f9a60bcabd42baa60f938870f8f, type: 3}
   Owner: {fileID: 0}
   Players: []
-  ItemsCount: 3
-  Items:
-  - {fileID: 405209698061735053, guid: 6bc2417f04691834182865d31a68697c, type: 3}
+  <ItemsCount>k__BackingField: 3
+  _itemPrefabs: []
   GameStarted: 0
   InputActionAsset: {fileID: -944628639613478452, guid: 430572f2721bd444ea09b1af5ce57751,
     type: 3}
+  _dontSpawnEnemy: 0
+  _dontSpawnItems: 0
+--- !u!114 &7417879055380768975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2663232689601822180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b499ffe005a02144e910efae0e08a34f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeScale: 1
+  TestButton: 126

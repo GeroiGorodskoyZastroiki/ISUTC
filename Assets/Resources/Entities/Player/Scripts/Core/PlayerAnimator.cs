@@ -20,7 +20,7 @@ public class PlayerAnimator : MonoBehaviour
 
     private void Animate()
     {
-        Vector2 targetVelocity = Player.Movement.MoveDirection * Player.Movement.TargetSpeed;
+        Vector2 targetVelocity = Player.Movement.AnimMoveDirection * Player.Movement.TargetSpeed;
         _animVelocity = Vector3.Lerp(_animVelocity, targetVelocity, 0.25f);
         _animator.SetFloat("VelocityX", _animVelocity.x);
         _animator.SetFloat("VelocityZ", _animVelocity.y);

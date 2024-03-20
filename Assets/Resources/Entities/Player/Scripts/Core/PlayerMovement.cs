@@ -9,7 +9,9 @@ public class PlayerMovement : MonoBehaviour
     public float MaxStamina => _maxStamina;
     public float TargetSpeed => _targetSpeed;
 
+    [ReadOnly] public Vector2 RawMoveDirection;
     [ReadOnly] public Vector2 MoveDirection;
+    [ReadOnly] public Vector2 AnimMoveDirection;
 
     [Header("Speed")]
     [SerializeField] private float _crouchSpeed = 2f;
@@ -67,36 +69,44 @@ public class PlayerMovement : MonoBehaviour
     {
         CheckGround();
         Move();
-        ChangeColliders();
+        //ChangeColliders();
+        ChangeCollidersFixed();
     }
 
-    public void ChangeColliders()
+    private void ChangeColliders()
     {
-        //Debug.Log(Player.Appearance.Characters[Player.Network.Skin.Value].GetComponent<SkinnedMeshRenderer>().bounds.max.y);
-        _controller.height = _collider.height = Player.Appearance.Characters[Player.Network.Skin.Value].GetComponent<SkinnedMeshRenderer>().bounds.max.y;
-        _collider.center = _controller.center = new Vector3(0, _controller.height/2, 0);
-     }
+        Bounds bounds = Player.Appearance.Characters[Player.Network.Skin.Value].GetComponent<SkinnedMeshRenderer>().bounds;
+        _collider.height = _controller.height = bounds.max.y;
+        _collider.center = _controller.center = new Vector3(0, bounds.center.y, 0);
+    }
+
+    private void ChangeCollidersFixed()
+    {
+        _collider.height = _controller.height = Crouch ? 1.2f : 1.8f;
+        _collider.center = _controller.center = new Vector3(0, Crouch ? 0.6f : 0.9f, 0);
+    }
 
     private void Move()
     {
-        bool CheckCollisionWithObstacle()
+        bool[] CheckCollisionWithObstacle(float detectionOffset)
         {
-            const float capsuleRadius = 0.36f;
-            Vector3 capsuleBottomPoint = transform.position + new Vector3(0, _controller.stepOffset + capsuleRadius/2 + 0.01f, 0f);
-            Vector3 capsuleTopPoint = transform.position + new Vector3(0, 1.8f - capsuleRadius / 2, 0f);
-            Vector3 directionX = transform.rotation * new Vector3(MoveDirection.x, 0f, 0f);
-            Vector3 directionZ = transform.rotation * new Vector3(0f, 0f, MoveDirection.y);
-            bool hitX = MoveDirection.y == 0 ? Physics.CapsuleCast(capsuleBottomPoint, capsuleTopPoint, capsuleRadius, directionX, 0.25f, _levelLayerMask) : false;
-            bool hitZ = Physics.CapsuleCast(capsuleBottomPoint, capsuleTopPoint, capsuleRadius, directionZ, 0.25f, _levelLayerMask);
-            //Debug.Log($"CheckHit: {MoveDirection.x} {MoveDirection.y}");
+            float capsuleRadius = _collider.radius / 2;
+            Vector3 capsuleBottomPoint = transform.position + new Vector3(0, _controller.stepOffset * 2, 0f);
+            Vector3 capsuleTopPoint = transform.position + new Vector3(0, _collider.height, 0f);
+            Vector3 directionX = transform.rotation * new Vector3(RawMoveDirection.x, 0f, 0f);
+            Vector3 directionZ = transform.rotation * new Vector3(0f, 0f, RawMoveDirection.y);
+            float maxDistance = _collider.radius - capsuleRadius + detectionOffset;
+            bool hitX = Physics.CapsuleCast(capsuleBottomPoint, capsuleTopPoint, capsuleRadius, directionX, maxDistance, _levelLayerMask);
+            bool hitZ = Physics.CapsuleCast(capsuleBottomPoint, capsuleTopPoint, capsuleRadius, directionZ, maxDistance, _levelLayerMask);
+            //Debug.Log($"MoveDirection: {MoveDirection.x} {MoveDirection.y}");
             //Debug.Log($"CheckHit: {hitX} {hitZ}");
-            return hitX || hitZ;
+            return new bool[2] { hitX, hitZ };
         }
 
         float ChooseSpeed()
         {
             if (MoveDirection == Vector2.zero) return 0f;
-            if (Crouch) return 3f;
+            if (Crouch) return _crouchSpeed;
             if (Sprint && (_targetSpeed == _sprintSpeed))
             {
                 if (MoveDirection.y < 0 || _stamina < _staminaDecBreakpoint) return _walkSpeed;
@@ -111,12 +121,11 @@ public class PlayerMovement : MonoBehaviour
             return _walkSpeed;
         }
 
-        if (CheckCollisionWithObstacle())
-        {
-            _moveVelocity = Vector2.zero;
-            _targetSpeed = 0.0f;
-            return;
-        }
+        bool[] geometryHits = CheckCollisionWithObstacle(0.1f);
+        AnimMoveDirection = new Vector2(geometryHits[0] ? 0f : RawMoveDirection.x, geometryHits[1] ? 0f : RawMoveDirection.y);
+        if (RawMoveDirection.x == 0 || RawMoveDirection.y == 0)
+            MoveDirection = AnimMoveDirection;
+        else MoveDirection = RawMoveDirection;
 
         Vector3 targetDirection = new Vector3(MoveDirection.x, 0.0f, MoveDirection.y).normalized;
         if (MoveDirection != Vector2.zero) targetDirection = transform.right * MoveDirection.x + transform.forward * MoveDirection.y;

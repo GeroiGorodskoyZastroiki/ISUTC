@@ -964,15 +964,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -2102,7 +2104,6 @@ GameObject:
   - component: {fileID: 1757946947680813022}
   - component: {fileID: 7996654099110084424}
   - component: {fileID: 5380989017317919300}
-  - component: {fileID: 4994133469616964848}
   - component: {fileID: 1986047582201279391}
   - component: {fileID: 6057384638154958410}
   m_Layer: 6
@@ -2305,18 +2306,6 @@ MonoBehaviour:
   - 0
   applyHRTFToPathing: 0
   pathingMixLevel: 1
---- !u!114 &4994133469616964848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4210964334546757169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84674b1f75227ef42b5758d18e8dfe14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &1986047582201279391
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4017,6 +4006,7 @@ GameObject:
   - component: {fileID: 2892535192936613426}
   - component: {fileID: 9213385673484408132}
   - component: {fileID: 5831192549707550647}
+  - component: {fileID: 1087767218466808069}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -4067,7 +4057,7 @@ CharacterController:
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.35
-  m_SkinWidth: 0.0001
+  m_SkinWidth: 0.001
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!136 &3673040072709434853
@@ -4318,22 +4308,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 47fbc119-e374-4cf3-b2f2-7d6ab48b444f
     m_ActionName: 'Player/Esc[/Keyboard/escape]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8600044160724087879}
-        m_TargetAssemblyTypeName: PlayerInputManager, Assembly-CSharp
-        m_MethodName: OnTestKey
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 3ffff37e-b2e6-4c85-a655-da3519a3f88d
-    m_ActionName: 'Player/TestKey[/Mouse/middleButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -4623,7 +4597,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97d3d7106d42ee045a765c5958f4303f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RawMoveDirection: {x: 0, y: 0}
   MoveDirection: {x: 0, y: 0}
+  AnimMoveDirection: {x: 0, y: 0}
   _crouchSpeed: 2
   _walkSpeed: 4
   _sprintSpeed: 8
@@ -4659,6 +4635,20 @@ MonoBehaviour:
   _crouchingRig: {fileID: 873501966783709412}
   _crouchingAimRig: {fileID: 8547686926572066576}
   Player: {fileID: 0}
+--- !u!114 &1087767218466808069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7464074104819034232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0643406612e0974d9a728182a7498eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _leftFootstep: {fileID: 7159624155667036428}
+  _rightFootstep: {fileID: 7996654099110084424}
 --- !u!1 &7569659068372422163
 GameObject:
   m_ObjectHideFlags: 0
@@ -5404,7 +5394,6 @@ GameObject:
   - component: {fileID: 2995942284930296745}
   - component: {fileID: 7159624155667036428}
   - component: {fileID: 5709440068251775440}
-  - component: {fileID: 9050277865593734114}
   - component: {fileID: 2185173117135986868}
   - component: {fileID: 7993123150832639364}
   m_Layer: 6
@@ -5607,18 +5596,6 @@ MonoBehaviour:
   - 0
   applyHRTFToPathing: 0
   pathingMixLevel: 1
---- !u!114 &9050277865593734114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8868307611299831588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84674b1f75227ef42b5758d18e8dfe14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &2185173117135986868
 Rigidbody:
   m_ObjectHideFlags: 0

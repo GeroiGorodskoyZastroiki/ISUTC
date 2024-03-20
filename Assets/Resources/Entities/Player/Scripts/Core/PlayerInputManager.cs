@@ -3,7 +3,6 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
-using SteamAudio;
 
 public class PlayerInputManager : MonoBehaviour
 {
@@ -24,8 +23,8 @@ public class PlayerInputManager : MonoBehaviour
     private void OnEnable() =>
         GetComponent<PlayerInput>().enabled = true;
 
-    public void OnMove(InputAction.CallbackContext context) =>
-        Player.Movement.MoveDirection = context.ReadValue<Vector2>();
+    public void OnMove(InputAction.CallbackContext context) => //обновляется ТОЛЬКО при нажатии клавиш(не в Update)
+        Player.Movement.RawMoveDirection = context.ReadValue<Vector2>();
 
     public void OnLook(InputAction.CallbackContext context) =>
         Player.Camera.LookDelta = context.ReadValue<Vector2>();
@@ -35,13 +34,12 @@ public class PlayerInputManager : MonoBehaviour
         if (!Player.Movement.Crouch) Player.Movement.Sprint = context.action.IsPressed();
         else Player.Movement.Sprint = false;
     }
-   
 
     public void OnCrouch(InputAction.CallbackContext context)
     { if (context.performed) Player.Movement.Crouch = !Player.Movement.Crouch; }
 
-public void OnPickUp(InputAction.CallbackContext context)
-    { if (context.performed) Player.Interaction.PickUp(); }
+    public void OnPickUp(InputAction.CallbackContext context)
+        { if (context.performed) Player.Interaction.PickUp(); }
 
     public void OnFlashlight(InputAction.CallbackContext context)
     { if (context.performed) Player.Network.IsFlashlightOn.Value = !Player.Network.IsFlashlightOn.Value; }
@@ -63,17 +61,4 @@ public void OnPickUp(InputAction.CallbackContext context)
 
     public void OnVoiceChat(InputAction.CallbackContext context) =>
         SteamUser.VoiceRecord = context.performed;
-
-    public void OnTestKey(InputAction.CallbackContext context)
-    {
-        if (!context.performed) return;
-        TestServerRpc();
-    }
-
-    [ServerRpc]
-    private void TestServerRpc()
-    {
-        Player.Network.NetworkObject.Despawn();
-        //Destroy(gameObject);
-    }
 }
