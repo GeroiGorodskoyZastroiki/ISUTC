@@ -64,7 +64,7 @@ jobs:
           cd ${{ vars.GH_BUILD_REPO }}
           git config user.email "${{ secrets.EMAIL }}"
           git config user.name "${{ vars.GH_USER }}"
-          git checkout -B ${{ vars.GH_BUILD_BRANCH }}
+          git checkout ${{ vars.GH_BUILD_BRANCH }}
           cp -r ${{ github.workspace }}/build/StandaloneWindows/* .
           git add .
           git commit -m "${{ env.COMMIT_NAME }}"
