@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public GameObject Owner;
     [ReadOnly] public List<GameObject> Players = new(); //по€вл€ютс€ после старта игры
 
-    public int ItemsCount { get; private set; }
-    private GameObject[] _itemPrefabs;
+    [field: SerializeField] public int ItemsCount { get; private set; }
+    [SerializeField] private GameObject[] _itemPrefabs;
 
     [HideInInspector] public bool GameStarted;
     #endregion
@@ -25,7 +25,8 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Debug
-    [Title("Debug")][SerializeField] private bool _doesntSpawnEnemy = false;
+    [TitleGroup("Debug")][SerializeField] private bool _dontSpawnEnemy = false;
+    [TitleGroup("Debug")][SerializeField] private bool _dontSpawnItems = false;
     #endregion
 
     private void Awake()
@@ -70,7 +71,7 @@ public class GameManager : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        if (_doesntSpawnEnemy) return;
+        if (_dontSpawnEnemy) return;
         List<GameObject> enemySpawnPoints = GameObject.FindGameObjectsWithTag("EnemySpawnPoint").ToList();
         GameObject randomSpawnPoint = enemySpawnPoints[Random.Range(0, enemySpawnPoints.Count)];
         GameObject enemy = Instantiate(Enemy, randomSpawnPoint.transform.position, randomSpawnPoint.transform.rotation);
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour
 
     public void SpawnItems()
     {
+        if (_dontSpawnItems) return;
         List<GameObject> itemSpawnPoints = GameObject.FindGameObjectsWithTag("ItemSpawnPoint").ToList();
         for (int i = 0; i < ItemsCount; i++)
         {
