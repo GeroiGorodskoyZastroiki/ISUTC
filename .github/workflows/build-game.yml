@@ -54,18 +54,18 @@ jobs:
 
       - name: Clone Destination Repository
         run: |
-          git clone https://${{ secrets.GH_PAT }}@github.com/${{ vars.GH_USER_NAME }}/${{ vars.GH_BUILD_REPO_NAME }}.git
+          git clone https://${{ secrets.GH_PAT }}@github.com/${{ vars.GH_USER }}/${{ vars.GH_BUILD_REPO }}.git
 
       - name: Set Commit Name to Environment Variable
         run: echo "COMMIT_NAME=${{ github.event.head_commit.message }}" >> $GITHUB_ENV
       
       - name: Push Artifacts to Destination Repository
         run: |
-          cd ${{ vars.GH_BUILD_REPO_NAME }}
+          cd ${{ vars.GH_BUILD_REPO }}
           git config user.email "${{ secrets.EMAIL }}"
-          git config user.name "${{ vars.GH_USER_NAME }}"
-          git checkout -B ${{ vars.GH_BUILD_BRANCH_NAME }}
+          git config user.name "${{ vars.GH_USER }}"
+          git checkout -B ${{ vars.GH_BUILD_BRANCH }}
           cp -r ${{ github.workspace }}/build/StandaloneWindows/* .
           git add .
           git commit -m "${{ env.COMMIT_NAME }}"
-          git push -f origin ${{ vars.GH_BUILD_BRANCH_NAME }}
+          git push -f origin ${{ vars.GH_BUILD_BRANCH }}
