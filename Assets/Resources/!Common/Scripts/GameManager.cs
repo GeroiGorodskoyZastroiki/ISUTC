@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
         List<GameObject> enemySpawnPoints = GameObject.FindGameObjectsWithTag("EnemySpawnPoint").ToList();
         GameObject randomSpawnPoint = enemySpawnPoints[Random.Range(0, enemySpawnPoints.Count)];
         GameObject enemy = Instantiate(Enemy, randomSpawnPoint.transform.position, randomSpawnPoint.transform.rotation);
-        enemy.GetComponent<Enemy>().enabled = true;
+        enemy.GetComponent<AI>().enabled = true;
         enemy.GetComponent<NetworkObject>().Spawn(true);
     }
 

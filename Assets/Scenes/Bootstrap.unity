@@ -8390,7 +8390,7 @@ PrefabInstance:
     - target: {fileID: 110407800307294471, guid: 9c9a89ceb5373b64f82cf9cfcd565439,
         type: 3}
       propertyPath: _dontSpawnEnemy
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 110407800307294471, guid: 9c9a89ceb5373b64f82cf9cfcd565439,
         type: 3}
@@ -8457,6 +8457,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844167239341945911, guid: 9c9a89ceb5373b64f82cf9cfcd565439,
+        type: 3}
+      propertyPath: _timeScale
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -11,7 +11,7 @@ public class PlayerFootsteps : Footsteps
         if (foot == "left") audioSource = _leftFootstep;
         else if (foot == "right") audioSource = _rightFootstep;
         Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("StaticGeometry"));
-        Debug.Log(hit.transform.gameObject.name);
+        if (hit.transform == null) return;
         float volumeFactor = 0.5f;
         if (GetComponentInParent<Player>().Movement.Sprint) volumeFactor = 1;
         if (GetComponentInParent<Player>().Movement.Crouch) volumeFactor = 0.25f;

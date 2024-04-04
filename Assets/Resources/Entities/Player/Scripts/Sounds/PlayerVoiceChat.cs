@@ -4,7 +4,7 @@ using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerVoiceChat : NetworkBehaviour
+public class PlayerVoiceChat : NetworkBehaviour, IStreamedAudio
 {
     private NetworkVariable<FixedString4096Bytes> _voiceData = new(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
@@ -15,14 +15,16 @@ public class PlayerVoiceChat : NetworkBehaviour
     private MemoryStream _input;
 
     private int _optimalRate;
-    private int _clipBufferSize;
-    private float[] _clipBuffer;
+    public int ClipBufferSize { get; private set; }
+    public float[] ClipBuffer { get; private set; }
 
     private int _playbackBuffer;
     private int _dataPosition;
     private int _dataReceived;
 
     private int _compressedWritten;
+
+    public bool Listen = false;
 
     private void Awake()
     {
@@ -34,14 +36,14 @@ public class PlayerVoiceChat : NetworkBehaviour
     {
         _optimalRate = (int)SteamUser.OptimalSampleRate;
 
-        _clipBufferSize = _optimalRate * 5;
-        _clipBuffer = new float[_clipBufferSize];
+        ClipBufferSize = _optimalRate * 5;
+        ClipBuffer = new float[ClipBufferSize];
 
         _stream = new MemoryStream();
         _output = new MemoryStream();
         _input = new MemoryStream();
 
-        _source.clip = AudioClip.Create("VoiceData", (int)256, 1, (int)_optimalRate, true, OnAudioRead, null);
+        _source.clip = AudioClip.Create("VoiceData", 256, 1, _optimalRate, true, OnAudioRead, null);
         _source.loop = true;
         _source.Play();
     }
@@ -50,40 +52,34 @@ public class PlayerVoiceChat : NetworkBehaviour
     {
         if (gameObject.GetComponentInParent<NetworkObject>().IsLocalPlayer)
         {
-            //SteamUser.VoiceRecord = Input.GetKey(KeyCode.V); //переписать
             if (SteamUser.HasVoiceData)
             {
-                Debug.Log("voicechat");
-                //int compressedWritten = SteamUser.ReadVoiceData(stream);
-                //stream.Position = 0;
-
                 var stream = new MemoryStream();
                 _compressedWritten = SteamUser.ReadVoiceData(stream);
                 stream.Position = 0;
 
                 string streamString = null;
                 foreach (byte b in stream.GetBuffer())
-                {
                     streamString += b.ToString() + ",";
-                }
+
                 streamString = streamString.Remove(streamString.Length - 1, 1);
                 var fixedStreamString = new FixedString4096Bytes(streamString);
 
                 _voiceData.Value = fixedStreamString;
             }
+            if (_playbackBuffer == 0)
+                ClipBuffer = new float[ClipBufferSize];
         }
     }
 
     public void OnVoiceDataChanged(FixedString4096Bytes previous, FixedString4096Bytes current)
     {
-        if (IsOwner) return;
+        if (IsOwner && !Listen) return;
 
         string[] strs = current.ToString().Split(",");
         byte[] buffer = new byte[strs.Length];
         for (int i = 0; i < strs.Length; i++)
-        {
             buffer[i] = byte.Parse(strs[i]);
-        }
 
         _input.Write(buffer, 0, buffer.Length);
         _input.Position = 0;
@@ -107,9 +103,9 @@ public class PlayerVoiceChat : NetworkBehaviour
             if (_playbackBuffer > 0)
             {
                 // current data position playing
-                _dataPosition = (_dataPosition + 1) % _clipBufferSize;
+                _dataPosition = (_dataPosition + 1) % ClipBufferSize;
 
-                data[i] = _clipBuffer[_dataPosition];
+                data[i] = ClipBuffer[_dataPosition];
 
                 _playbackBuffer--;
             }
@@ -122,10 +118,10 @@ public class PlayerVoiceChat : NetworkBehaviour
         {
             // insert converted float to buffer
             float converted = (short)(uncompressed[i] | uncompressed[i + 1] << 8) / 32767.0f;
-            _clipBuffer[_dataReceived] = converted;
+            ClipBuffer[_dataReceived] = converted;
 
             // buffer loop
-            _dataReceived = (_dataReceived + 1) % _clipBufferSize;
+            _dataReceived = (_dataReceived + 1) % ClipBufferSize;
 
             _playbackBuffer++;
         }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4611231119253497820}
   - component: {fileID: 110407800307294471}
-  - component: {fileID: 7417879055380768975}
+  - component: {fileID: 4844167239341945911}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -55,7 +55,7 @@ MonoBehaviour:
     type: 3}
   _dontSpawnEnemy: 0
   _dontSpawnItems: 0
---- !u!114 &7417879055380768975
+--- !u!114 &4844167239341945911
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

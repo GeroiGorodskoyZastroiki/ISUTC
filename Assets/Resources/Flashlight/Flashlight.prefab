@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 1931708505865605230}
   - component: {fileID: 1116781388317970352}
   - component: {fileID: 7725044393901468449}
-  - component: {fileID: 3668369777437125816}
   m_Layer: 0
   m_Name: Flashlight
   m_TagString: Untagged
@@ -36,6 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8359394162237891620}
+  - {fileID: 4116288159029191729}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1465988868510216599
@@ -277,21 +277,57 @@ MonoBehaviour:
   - 0
   applyHRTFToPathing: 0
   pathingMixLevel: 1
---- !u!114 &3668369777437125816
+--- !u!1 &3074503308172957616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4116288159029191729}
+  - component: {fileID: 8422268273152828772}
+  m_Layer: 0
+  m_Name: CollidersCaster
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4116288159029191729
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3074503308172957616}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2837783626571200270}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8422268273152828772
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122872290524068797}
+  m_GameObject: {fileID: 3074503308172957616}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 727ca0a6a755099419120b70bb9d01f9, type: 3}
+  m_Script: {fileID: 11500000, guid: 62d64da60cf134844b00c98f338adefa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 0
-  _radiusPoints: 0
-  _range: 0
+  _iterations: 5
+  _colliderRadius: 0.5
+  _angleAmplification: 5
+  _maxDistance: 35
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &5853326049407138687
 GameObject:
   m_ObjectHideFlags: 0

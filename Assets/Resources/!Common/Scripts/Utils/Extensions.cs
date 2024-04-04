@@ -2,6 +2,7 @@ using UnityEngine;
 using Steamworks.Data;
 using UnityEngine.AI;
 using Color = Steamworks.Data.Color;
+using System.Collections.Generic;
 
 public static class Extensions
 {
@@ -56,4 +57,31 @@ public static class Extensions
 
     public static void ChangeListener(this SteamAudio.SteamAudioManager steamAudioManager, Transform listener) =>
         steamAudioManager.mListener = listener;
+
+    public static Vector3 GetExitPosition(this Collider collider, Vector3 entryPoint, Vector3 direction, float checkDistance) => GetExitPosition(collider, new Ray(entryPoint, direction), checkDistance);
+    public static Vector3 GetExitPosition(this Collider collider, Ray ray, float checkDistance)
+    {
+        // Get a point x distance from the entryPoint    
+        ray.origin = ray.GetPoint(checkDistance);
+        // Reverse the ray direction
+        ray.direction = -ray.direction;
+        // Call the raycast from the collider
+        collider.Raycast(ray, out var hit, float.MaxValue);
+        return hit.point;
+    }
+
+    // Метод для поиска объектов на сцене, реализующих указанный интерфейс
+    public static List<GameObject> FindObjectsWithInterface<T>(this Object obj) where T : class
+    {
+        List<GameObject> objectsWithInterface = new List<GameObject>();
+        GameObject[] allObjects = Object.FindObjectsByType<GameObject>(FindObjectsSortMode.None);
+        foreach (GameObject gameObject in allObjects)
+        {
+            // Проверяем, имеет ли объект компонент, реализующий указанный интерфейс
+            T component = gameObject.GetComponent(typeof(T)) as T;
+            if (component != null)
+                objectsWithInterface.Add(gameObject);
+        }
+        return objectsWithInterface;
+    }
 }

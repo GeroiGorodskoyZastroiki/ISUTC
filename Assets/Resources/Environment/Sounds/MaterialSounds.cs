@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 
+[System.Serializable]
 [CreateAssetMenu(fileName = "MaterialSounds", menuName = "ScriptableObjects/MaterialSounds")]
 public class MaterialSounds : ScriptableObject
 {

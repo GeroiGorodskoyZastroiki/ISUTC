@@ -11,6 +11,7 @@ TagManager:
   - PlayerSpawnPoint
   - LobbySpawnPoint
   - EnemySpawnPoint
+  - FlashlightCast
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - Player
   - Enemy
   - Items
-  - 
+  - Detection
   - 
   - 
   - 
