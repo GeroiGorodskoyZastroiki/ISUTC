@@ -36,7 +36,7 @@ public class FlashlightCast : MonoBehaviour
             colliderGO.transform.parent = transform;
             SphereCollider sphereCollider = colliderGO.AddComponent<SphereCollider>();
             sphereCollider.radius = _colliderRadius;
-            //sphereCollider.isTrigger = true;
+            sphereCollider.isTrigger = true;
             _colliders.Add(colliderGO);
         }
     }

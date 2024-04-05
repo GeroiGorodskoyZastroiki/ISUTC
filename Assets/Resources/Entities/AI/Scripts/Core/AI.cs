@@ -36,4 +36,10 @@ public class AI : MonoBehaviour
 
         Animator.AI = Movement.AI = Detection.AI = Navigation.AI = Melee.AI = this;
     }
+
+    public void OnEnable()
+    {
+        if (NetworkManager.Singleton.IsHost)
+            Agent.enabled = Animator.enabled = Movement.enabled = Detection.enabled = Navigation.enabled = Melee.enabled = true;
+    }
 }

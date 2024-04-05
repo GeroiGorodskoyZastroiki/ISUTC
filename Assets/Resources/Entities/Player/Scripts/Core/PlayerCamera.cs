@@ -1,6 +1,5 @@
-using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Sirenix.OdinInspector;
 
 public class PlayerCamera : MonoBehaviour
 {
@@ -12,9 +11,9 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private bool _cameraBob = true;
 
     private const float _cameraRotationThreshold = 0.01f;
-    public float CameraPitch {  get; private set; }
+    public float CameraPitch { get; private set; }
 
-    [FormerlySerializedAs("_lookDelta")] public Vector2 LookDelta;
+    public Vector2 LookDelta;
     private float _rotationVelocity;
     [SerializeField] private float _rotationSpeed = 1.0f;
     #endregion

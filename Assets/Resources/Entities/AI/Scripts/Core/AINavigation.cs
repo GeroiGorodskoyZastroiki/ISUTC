@@ -50,7 +50,8 @@ public class AINavigation : MonoBehaviour
         AI.Agent.SetDestination(AI.Detection.TargetGameObject.transform.position);
         while (AI.Agent.pathPending || AI.Agent.remainingDistance > AI.Melee.AttackDistance)
         {
-            AI.Agent.SetDestination(AI.Detection.TargetGameObject.transform.position);
+            if (AI.Detection.TargetGameObject != null) 
+                AI.Agent.SetDestination(AI.Detection.TargetGameObject.transform.position);
             yield return null;
         }
     }

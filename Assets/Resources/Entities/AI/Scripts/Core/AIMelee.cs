@@ -21,20 +21,27 @@ public class AIMelee : MonoBehaviour
     {
         while (true)
         {
-            if ( AI.Detection.TargetGameObject)
+            while (true)
             {
-                var distance = Vector3.Distance(transform.position, AI.Detection.TargetGameObject.transform.position);
-                if (AI.Detection.TargetGameObject && distance < AttackDistance) break;
+                if (AI.Detection.TargetGameObject)
+                {
+                    var distance = Vector3.Distance(transform.position, AI.Detection.TargetGameObject.transform.position);
+                    Debug.Log(AI.Detection.TargetGameObject);
+                    Debug.Log(distance);
+                    if (AI.Detection.TargetGameObject && distance <= AttackDistance + 0.25f) break;
+                    else yield return null;
+                }
                 else yield return null;
             }
-            else yield return null;
-        }
-        Debug.Log("Kill");
-        AI.State = AIStates.Kill;
-        AI.Navigation.SearchMode = AI.Navigation.KillSearchMode;
+            Debug.Log("Kill");
+            AI.State = AIStates.Kill;
+            AI.Navigation.SearchMode = AI.Navigation.KillSearchMode;
 
-        AudioSource.PlayClipAtPoint(AI.Detection.TargetGameObject.GetComponentInChildren<PlayerMouth>().Death, AI.Detection.TargetGameObject.transform.position);
-        AI.Detection.TargetGameObject.GetComponent<NetworkObject>().Despawn();
-        AI.Detection.StartCoroutine(AI.Detection.OnTargetLost(0f));
+            AudioSource.PlayClipAtPoint(AI.Detection.TargetGameObject.GetComponentInChildren<PlayerMouth>().Death, AI.Detection.TargetGameObject.transform.position);
+            AI.Detection.TargetGameObject.GetComponent<NetworkObject>().Despawn();
+            AI.Detection.StartCoroutine(AI.Detection.OnTargetLost(0f));
+            yield return null;
+        }
     }
+
 }

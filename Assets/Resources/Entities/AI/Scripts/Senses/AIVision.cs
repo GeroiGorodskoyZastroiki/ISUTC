@@ -70,4 +70,10 @@ public class AIVision : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerExit(Collider collider)
+    {
+        if (collider.GetComponent<Player>())
+            OnVisualLost.Invoke(collider.gameObject);
+    }
 }

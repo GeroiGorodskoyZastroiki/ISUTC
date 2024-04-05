@@ -141,7 +141,7 @@ public class SteamworksManager : MonoBehaviour
             GameManager.Instance.SpawnEnemy();
         }
         GameManager.Instance.GameStarted = true;
-        lobby.SetJoinable(false);
+        lobby.SetJoinable(true); //
     }
     #endregion
 }

@@ -551,7 +551,7 @@ GameObject:
   - component: {fileID: 2757036653546528343}
   m_Layer: 5
   m_Name: Spectator
-  m_TagString: Untagged
+  m_TagString: UIScreen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

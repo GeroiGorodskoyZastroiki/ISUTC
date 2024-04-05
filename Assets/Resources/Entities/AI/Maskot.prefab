@@ -597,7 +597,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5043626512436379728}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.75
   m_Speed: 4
@@ -632,7 +632,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5043626512436379728}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 069fe268e3af3e34c8acd5244c4adb38, type: 3}
   m_Name: 
@@ -648,7 +648,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5043626512436379728}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3d16801d0d16c14f9e32f293f81ec45, type: 3}
   m_Name: 
@@ -661,7 +661,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5043626512436379728}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30fb300a9d5474b4dbb738baef125655, type: 3}
   m_Name: 
@@ -678,7 +678,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5043626512436379728}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91455af0262a6ed47aa3e62cfd766326, type: 3}
   m_Name: 
@@ -688,6 +688,7 @@ MonoBehaviour:
   CheckSearchMode: {fileID: 11400000, guid: 83abda192c45c354798eedaff1bd1035, type: 2}
   PatrolSearchMode: {fileID: 11400000, guid: 7706782e13c171a46ace4b44be3163f5, type: 2}
   KillSearchMode: {fileID: 11400000, guid: 5cd60a8e919c5104ca860b5b1981d9ad, type: 2}
+  _maxAdditionPathDistance: 5
   AI: {fileID: 0}
 --- !u!114 &7153789542369764032
 MonoBehaviour:
@@ -696,7 +697,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5043626512436379728}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: feec8441e3e4cf340afdab52044cc3bf, type: 3}
   m_Name: 
@@ -737,7 +738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1847632652
+  GlobalObjectIdHash: 1349405940
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1

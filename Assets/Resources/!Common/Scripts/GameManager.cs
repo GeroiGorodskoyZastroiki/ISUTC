@@ -107,6 +107,7 @@ public class GameManager : MonoBehaviour
         //Debug.Log(Players.Count);
         if (Players.Count == 0) return;
         Players[0].GetComponentInChildren<Camera>(true).gameObject.SetActive(true);
+        Players[0].GetComponentInChildren<PlayerCamera>(true).enabled = true;
         UIManager.Open(UIManager.Spectator);
     }
 
