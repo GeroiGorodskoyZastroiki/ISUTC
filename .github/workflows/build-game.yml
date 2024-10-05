@@ -69,3 +69,5 @@ jobs:
           git add .
           git commit -m "${{ env.COMMIT_NAME }}"
           git push -f origin ${{ vars.GH_BUILD_BRANCH }}
+
+          
