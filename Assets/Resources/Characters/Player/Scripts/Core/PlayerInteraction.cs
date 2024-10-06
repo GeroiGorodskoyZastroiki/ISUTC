@@ -14,10 +14,10 @@ public class PlayerInteraction : MonoBehaviour
     public void PickUp()
     {
         var ray = Camera.main!.ScreenPointToRay(Player.Input.MousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, _pickUpDistance))
+        if (Physics.Raycast(ray, out RaycastHit hit, _pickUpDistance, LayerMask.GetMask("Items")))
         {
             hit.transform.gameObject.TryGetComponent(out Item item);
-            if (item && hit.distance < PickUpDistance) item.ItemDespawnServerRpc();
+            if (item && (hit.distance < PickUpDistance)) item.PickUpRpc();
         }
     }
 }

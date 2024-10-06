@@ -72,4 +72,14 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void UpdateSkin() => OnSkinChanged(Skin.Value, Skin.Value);
 
+    [Rpc(SendTo.Everyone)]
+    public void DieRpc() //синхронизировать по сети
+    {
+        Player.Rig.Ragdoll();
+        //AudioSource.PlayClipAtPoint(GetComponentInChildren<PlayerMouth>().Death, transform.position);
+        Player.DisableComponents();
+        GameManager.Instance.Players.Remove(gameObject);
+        if (IsOwner) GameManager.Instance.MakePlayerSpectator();
+        //Network.NetworkObject.Despawn();
+    }
 }

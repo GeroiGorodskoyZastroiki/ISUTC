@@ -51,6 +51,7 @@ public class AIDetection : MonoBehaviour, IHearing
     private void SenseDetected(AISenses newTargetDetectionType, IEnumerator State, Vector3 position)
     {
         //Debug.Log(newTargetDetectionType);
+        if (TargetGameObject != null) return;
         if (TargetPosition != null)
             if (!IsTargetRelevant(newTargetDetectionType, TargetPosition, position)) return;
 
@@ -72,12 +73,13 @@ public class AIDetection : MonoBehaviour, IHearing
 
     private bool IsTargetRelevant(AISenses newTargetDetectionType, Vector3 oldPosition, Vector3 newPosition)
     {
+        Debug.Log(newTargetDetectionType + " " + TargetDetectionType);
         if (TargetDetectionType < newTargetDetectionType) return false;
         if (TargetDetectionType == newTargetDetectionType)
         {
             var oldDistance = Vector3.Distance(transform.position, oldPosition);
             var newDistance = Vector3.Distance(transform.position, newPosition);
-            if (oldDistance + 5f < newDistance) return false; //���������� �� ���. �����
+            if (oldDistance + 5f < newDistance) return false;
         }
         return true;
     }
@@ -90,7 +92,7 @@ public class AIDetection : MonoBehaviour, IHearing
         AI.Navigation.StopAllCoroutines();
         AI.Navigation.StartCoroutine(State);
     }
-#endregion
+    #endregion
 
     #region OnLost
     private void OnVisualLost(GameObject target)

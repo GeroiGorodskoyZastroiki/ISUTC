@@ -34,7 +34,7 @@ public class PlayerHUD : MonoBehaviour
     {
         bool pickUp = false;
         Ray ray = Camera.main!.ScreenPointToRay(Player.Input.MousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, Player.Interaction.PickUpDistance))
+        if (Physics.Raycast(ray, out RaycastHit hit, Player.Interaction.PickUpDistance, LayerMask.GetMask("Items")))
         {
             hit.transform.gameObject.TryGetComponent(out Item item);
             if (item != null)

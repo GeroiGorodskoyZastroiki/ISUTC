@@ -703,7 +703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feec8441e3e4cf340afdab52044cc3bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackDistance: 1.85
+  AttackDistance: 2
   AI: {fileID: 0}
 --- !u!95 &3252672129103048711
 Animator:

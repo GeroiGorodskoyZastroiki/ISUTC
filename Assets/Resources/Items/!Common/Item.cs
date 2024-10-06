@@ -2,9 +2,10 @@ using Sirenix.OdinInspector;
 using Unity.Netcode;
 using UnityEngine;
 
-public class Item : NetworkBehaviour
+public abstract class Item : NetworkBehaviour
 {
-    [MinValue(1.01f)][SerializeField] private float _outlineThickness;
+    [MinValue(1.01f)][SerializeField] private float _outlineThickness = 1.01f;
+    [SerializeField] private AudioClip _pickUpSound;
 
     private void Start()
     {
@@ -17,7 +18,11 @@ public class Item : NetworkBehaviour
         else GetComponent<Renderer>().materials[1].SetFloat("_Thickness", _outlineThickness);
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void ItemDespawnServerRpc(ServerRpcParams serverRpcParams = default) => NetworkObject.Despawn();
+    [Rpc(SendTo.Everyone)]
+    public void PickUpRpc()
+    {
+        AudioSource.PlayClipAtPoint(_pickUpSound, transform.position);
+        NetworkObject.Despawn();
+    }
 }
 

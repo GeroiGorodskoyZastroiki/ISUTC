@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
@@ -38,5 +39,14 @@ public class Player : MonoBehaviour
         Animator.enabled = Rig.enabled = Appearance.enabled = Camera.enabled = Input.enabled = HUD.enabled =
         Movement.enabled = Interaction.enabled = Movement.enabled = Network.enabled = true;
         GetComponentInChildren<AimPoint>().enabled = true;
+    }
+
+    public void DisableComponents()
+    {
+        Animator.enabled = Rig.enabled = Appearance.enabled = Camera.enabled = Input.enabled = HUD.enabled =
+        Movement.enabled = Interaction.enabled = Movement.enabled = Network.enabled = false;
+        Network.IsFlashlightOn.Value = false;
+        GetComponentInChildren<AimPoint>().enabled = false;
+        Destroy(this);
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
@@ -53,15 +52,7 @@ public class PlayerRig : MonoBehaviour
         _crouchingAimRig.weight = Mathf.Lerp(_crouchingAimRig.weight, Mathf.Clamp01(Player.Camera.CameraPitch * -0.04f), 0.1f);
     }
 
-    public IEnumerator Die()
-    {
-        yield return new WaitForSeconds(0.25f);
-        Ragdoll();
-        //AudioSource.PlayClipAtPoint(GetComponentInChildren<PlayerMouth>().Death, transform.position);
-        Player.Network.NetworkObject.Despawn();
-    }
-
-    void Ragdoll()
+    public void Ragdoll()
     {
         GetComponent<Animator>().enabled = false;
         foreach (var child in GetComponentsInChildren<Transform>().Where(x => x.name.StartsWith("mixamorig")))

@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 6197232508619932835}
   - component: {fileID: 5491398813941049622}
   - component: {fileID: 2747341955284884772}
-  - component: {fileID: 697304796221520185}
   - component: {fileID: 1580641314108001434}
+  - component: {fileID: 7410005333297068524}
   m_Layer: 8
-  m_Name: Item
+  m_Name: Papers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,19 +109,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3787816660248600942, guid: 08cf97bbfb5d94e48b74c3a8f3fc707a, type: 3}
---- !u!114 &697304796221520185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 405209698061735053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ff890d13bb05d24bbb5c75c1b6fcdd0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _outlineThickness: 1.05
 --- !u!114 &1580641314108001434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
+  GlobalObjectIdHash: 2374941775
+  InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -142,3 +130,17 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 1
   AutoObjectParentSync: 1
+--- !u!114 &7410005333297068524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405209698061735053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13c1174635d825942b25156ea65aeca0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _outlineThickness: 1.05
+  _pickUpSound: {fileID: 8300000, guid: 204bc2fb3a7be0a41a385df1a78a563f, type: 3}

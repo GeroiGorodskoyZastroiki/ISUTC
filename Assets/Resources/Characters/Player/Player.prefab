@@ -217,7 +217,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -0.994859, y: -0.07122175, z: -0.07199237}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_ConnectedAnchor: {x: 0.0000000018626451, y: 0.3859459, z: -9.313226e-10}
   serializedVersion: 2
   m_SwingAxis: {x: -0.100309566, y: 0.79067934, z: 0.6039572}
   m_TwistLimitSpring:
@@ -2138,7 +2138,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -0.9997726, y: -0.02125298, z: -0.0017113991}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_ConnectedAnchor: {x: 0, y: 0.41401014, z: 0}
   serializedVersion: 2
   m_SwingAxis: {x: -0.00093914336, y: -0.03629331, z: 0.9993408}
   m_TwistLimitSpring:
@@ -2779,7 +2779,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -0.9998016, y: 0.01982376, z: -0.0019518976}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_ConnectedAnchor: {x: 0.09256786, y: -0.060733702, z: -0.0013054127}
   serializedVersion: 2
   m_SwingAxis: {x: -0.0024477374, y: -0.025019009, z: 0.999684}
   m_TwistLimitSpring:
@@ -4165,7 +4165,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -0.02777308, y: -0.000000029802322, z: -0.28460366}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_ConnectedAnchor: {x: 0.19734104, y: 0.24586546, z: -0.005201578}
   serializedVersion: 2
   m_SwingAxis: {x: -0.9952461, y: 0.0072411634, z: 0.09712114}
   m_TwistLimitSpring:
@@ -5757,7 +5757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4269935574
+  GlobalObjectIdHash: 1212921082
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -5778,7 +5778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b824d21e7c7417d448807efecb30a296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseUnreliableDeltas: 0
+  UseUnreliableDeltas: 1
   SyncPositionX: 1
   SyncPositionY: 1
   SyncPositionZ: 1
@@ -5795,8 +5795,8 @@ MonoBehaviour:
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
-  Interpolate: 0
-  SlerpPosition: 0
+  Interpolate: 1
+  SlerpPosition: 1
 --- !u!114 &7709273060753151043
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,6 +13,6 @@ public class Debugger : MonoBehaviour
 
     public void OnTestKey()
     {
-        
+        GameManager.Instance.Players[0].GetComponent<Player>().Network.DieRpc();
     }
 }

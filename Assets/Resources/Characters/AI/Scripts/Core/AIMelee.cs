@@ -35,9 +35,9 @@ public class AIMelee : MonoBehaviour
             }
             AI.State = AIStates.Kill;
             AI.Agent.isStopped = true;
-
-            StartCoroutine(AI.Detection.TargetGameObject.GetComponent<Player>().Rig.Die());
+            
             yield return new WaitForSeconds(0.25f);
+            AI.Detection.TargetGameObject.GetComponent<Player>().Network.DieRpc();
             AI.Agent.isStopped = false;
             AI.Navigation.SearchMode = AI.Navigation.KillSearchMode;
             AI.Detection.StartCoroutine(AI.Detection.OnTargetLost(0f));

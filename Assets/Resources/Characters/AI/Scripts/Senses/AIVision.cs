@@ -12,12 +12,27 @@ public class AIVision : MonoBehaviour
     #endregion
 
     #region References
-    private AI _enemy;
+    private AI AI;
     #endregion
 
     private void Start()
     {
-        _enemy = GetComponentInParent<AI>();
+        AI = GetComponentInParent<AI>();
+    }
+
+    private void Update() 
+    {
+        if (AI.Detection.TargetGameObject != null)
+        {
+            Ray ray = new Ray(transform.root.position + new Vector3(0f, 1.15f, 0f), (AI.Detection.TargetGameObject.transform.position - transform.root.position).normalized);
+            Physics.Raycast(ray, out var hit, _losRange, _layerMask);
+            if (hit.transform)
+                if (hit.transform.root.gameObject != AI.Detection.TargetGameObject)
+                {
+                    Debug.Log("Lost " + AI.Detection.TargetGameObject);
+                    OnVisualLost.Invoke(AI.Detection.TargetGameObject);
+                }
+        }
     }
 
     private void OnTriggerStay(Collider collider)
@@ -29,20 +44,12 @@ public class AIVision : MonoBehaviour
             Ray ray = new Ray(transform.root.position + new Vector3(0f, 1.15f, 0f), (player.transform.position - transform.root.position).normalized);
             Physics.SphereCast(ray, 0.2f, out var hit, _losRange, _layerMask);
             if (hit.transform)
-            {
-                if (hit.transform.gameObject == player.gameObject)
+                if (hit.transform.root.gameObject == player.gameObject)
                 {
-                    //Debug.Log(hit.transform);
+                    Debug.Log("Detected " + player);
                     OnVisualDetected.Invoke(player.gameObject);
                     return;
-                }
-                else
-                {
-                    //Debug.Log(hit.transform);
-                    OnVisualLost.Invoke(player.gameObject);
-                }
-                    
-            }
+                }                  
         }
 
         if (collider.tag != "FlashlightCast") return;
@@ -55,25 +62,19 @@ public class AIVision : MonoBehaviour
             if (hit.transform)
             {
                 if (hit.collider.gameObject.tag != "FlashlightCast") return;
-                //Debug.Log(hit.collider);
-                //Debug.Log(hit.collider.gameObject.name);
-                //Debug.Log(flash.gameObject.name);
-                //if (hit.collider.gameObject == flash.gameObject)
-                //{
                     if (flash.gameObject.transform.root.GetComponentInChildren<Light>().enabled)
                     {
                         float distanceOffset = 0.5f * hit.distance;
                         var positionOffset = new Vector3(Random.Range(-distanceOffset, distanceOffset), 0, Random.Range(-distanceOffset, distanceOffset));
                         OnVisualIndirectDetected.Invoke(flash.transform.root.position + positionOffset);
                     }
-                //}
             }
         }
     }
 
-    private void OnTriggerExit(Collider collider)
-    {
-        if (collider.GetComponent<Player>())
-            OnVisualLost.Invoke(collider.gameObject);
-    }
+    // private void OnTriggerExit(Collider collider)
+    // {
+    //     if (collider.GetComponent<Player>())
+    //         OnVisualLost.Invoke(collider.gameObject);
+    // }
 }
